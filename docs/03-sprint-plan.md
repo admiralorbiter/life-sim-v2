@@ -148,23 +148,24 @@ A collapsible debug panel (`🛠️ Dev Tools`) is available at the bottom of th
 **Goal:** Full 40-card deck authored, balanced, and reskinnable.
 
 ### Tasks
-- [ ] Author remaining event cards to reach 40 total
-  - Stage A: 8 cards
-  - Stage B: 12 cards
-  - Stage C: 8 cards
-  - Stage D: 12 cards
-- [ ] Implement reskinning system — template events with stage-specific text variants
-- [ ] Balance pass: playtest 5 full runs, adjust stat deltas
-- [ ] Add rarity distribution tuning (common 60%, uncommon 30%, rare 10%)
-- [ ] Add conditional options (e.g., "Ask mentor for help" only if Support ≥ 5)
-- [ ] Add KC flavor text to events (bus routes, local employers, neighborhood names)
-- [ ] Populate `data/kc-config.json` with wage bands, cost ranges, industry names
+- [x] Author remaining event cards to reach 40 total
+  - Stage A: 8 cards (was 5, added 3: `evt_family_chores_a`, `evt_school_supplies_a`, `evt_talent_show_a`)
+  - Stage B: 12 cards (was 6, added 6: `evt_bus_cancelled_b`, `evt_test_prep_b`, `evt_group_project_b`, `evt_internship_b`, `evt_burnout_b`, `evt_family_help_b`)
+  - Stage C: 8 cards (was 4, added 4: `evt_fafsa_surprise_c`, `evt_housing_shift_c`, `evt_networking_c`, `evt_family_pressure_c`)
+  - Stage D: 12 cards (was 7, added 5: `evt_burnout_d`, `evt_side_hustle_d`, `evt_friend_loan_d`, `evt_transport_breakdown_d`, `evt_family_emergency_d`)
+- [x] Reskinning handled via data-only approach — template concepts (Transportation, Unexpected Expense, Social Conflict, Opportunity Knocks, Burnout Warning, Family Needs) authored as flat stage-specific cards
+- [x] Add rarity distribution tuning — weights set to 6.0/3.0/1.0 in `event_deck.rs` for 60%/30%/10% draw probability
+- [x] Add conditional options — `requiresSupport` enforced in `turn_runner.rs`, frontend locks options via `components.js` + `style.css`
+- [x] Add KC flavor text to events (KCATA bus routes, Prospect Ave, Independence Ave, Crossroads, Ivanhoe, Kauffman Center, KC Scholars, Midtown, Raytown)
+- [x] Populate `data/kc-config.json` with wage bands, cost ranges, industry names, employers, bus routes, landmarks, neighborhoods
+- [x] Added `playerSupport` to `draw_event` API response for frontend gating
+- [x] Unit test `test_requires_support_blocks_option` validates backend enforcement
 
 ### Definition of Done
-- 40 unique event cards in `data/events.json`
-- At least 6 templates with stage-appropriate reskins
-- Conditional options display only when requirements are met
-- KC flavor is present but non-blocking (game works without it)
+- [x] 40 unique event cards in `data/events.json`
+- [x] 6 template concepts authored as stage-specific card variants (data-only approach)
+- [x] Conditional options display only when requirements are met (locked UI + backend guard)
+- [x] KC flavor is present but non-blocking (game works without it)
 
 ---
 

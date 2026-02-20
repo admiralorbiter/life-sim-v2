@@ -145,8 +145,21 @@ pub fn run_turn_with_event(
         // Apply event response if player chose one
         if let Some(opt_idx) = choices.event_option_index {
             if let Some(option) = event.options.get(opt_idx) {
-                let msgs = stat_calculator::apply_effects(state, &option.effects);
-                feedback.extend(msgs);
+                // Check requiresSupport gate
+                if let Some(min_support) = option.requires_support {
+                    if state.support < min_support {
+                        feedback.push(format!(
+                            "🔒 Option \"{}\" requires Support ≥ {} (you have {})",
+                            option.label, min_support, state.support
+                        ));
+                    } else {
+                        let msgs = stat_calculator::apply_effects(state, &option.effects);
+                        feedback.extend(msgs);
+                    }
+                } else {
+                    let msgs = stat_calculator::apply_effects(state, &option.effects);
+                    feedback.extend(msgs);
+                }
             }
         }
     }
@@ -523,5 +536,62 @@ mod tests {
         run_turn(&mut state, &choices, &data, &mut rng);
         assert_eq!(state.job_turns, 0, "job_turns should reset after job switch");
         assert_eq!(state.current_job.as_ref().unwrap().id, "job_fast_food");
+    }
+
+    #[test]
+    fn test_requires_support_blocks_option() {
+        let data = load_test_data();
+        let mut state = GameState::new("SUPPORT_GATE_TEST".to_string());
+        let mut rng = create_rng("SUPPORT_GATE_TEST");
+
+        // Set support below the gate threshold
+        state.support = 2;
+        let initial_money = state.money;
+
+        // Build a custom event with a gated option
+        use crate::models::event::{EventCard, EventOption, StatEffect, Rarity};
+        use crate::models::event::StatType;
+
+        let gated_event = EventCard {
+            id: "evt_test_gated".to_string(),
+            title: "Test Gated Event".to_string(),
+            flavor_text: "Test".to_string(),
+            stages: vec![Stage::MiddleSchool],
+            rarity: Rarity::Common,
+            options: vec![
+                EventOption {
+                    label: "Gated Option".to_string(),
+                    description: "Requires support >= 5".to_string(),
+                    effects: vec![StatEffect { stat: StatType::Money, delta: 100, tag: None }],
+                    delayed_effects: None,
+                    requires_support: Some(5),
+                },
+                EventOption {
+                    label: "Free Option".to_string(),
+                    description: "No gate".to_string(),
+                    effects: vec![StatEffect { stat: StatType::Money, delta: 10, tag: None }],
+                    delayed_effects: None,
+                    requires_support: None,
+                },
+            ],
+        };
+
+        // Player picks the gated option (index 0) but has support=2 < 5
+        let choices = PlayerChoices {
+            action_ids: vec!["act_rest".to_string()],
+            decision_id: String::new(),
+            decision_option_index: 0,
+            event_option_index: Some(0), // gated option
+        };
+
+        let result = run_turn_with_event(&mut state, &choices, &data, &mut rng, Some(gated_event));
+
+        // The gated option's +$100 should NOT have been applied
+        assert_eq!(state.money, initial_money, "Money should not change when option is gated");
+        // Should have a lock feedback message
+        assert!(
+            result.feedback.iter().any(|f| f.contains("🔒")),
+            "Should have lock feedback, got: {:?}", result.feedback
+        );
     }
 }

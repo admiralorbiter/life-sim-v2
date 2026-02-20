@@ -215,6 +215,7 @@ const Game = {
         // Draw event from the server (preview, no state change yet)
         const drawResult = await API.drawEvent();
         const event = drawResult.event;
+        this.playerSupport = drawResult.playerSupport ?? (this.currentState?.support || 0);
 
         if (event && event.options && event.options.length > 0) {
             this.drawnEvent = event;
@@ -239,7 +240,7 @@ const Game = {
                 </div>
                 <h3>How do you respond?</h3>
                 <div class="event-options-grid">
-                    ${event.options.map((opt, i) => Components.eventOptionCard(opt, i, false)).join('')}
+                    ${event.options.map((opt, i) => Components.eventOptionCard(opt, i, false, this.playerSupport)).join('')}
                 </div>
                 <div class="phase-nav">
                     <button class="btn btn-primary" id="btn-event-submit" onclick="Game.submitEventChoice()" disabled>

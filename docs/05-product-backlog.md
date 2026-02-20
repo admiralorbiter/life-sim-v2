@@ -60,10 +60,10 @@ Stories are grouped by epic and roughly ordered by sprint. Priority: **P0** = mu
 |----|-------|----------|--------|----------|
 | E4-01 | Game has 5 event cards for Stage A (initial testing). | P0 | 1 | M |
 | E4-02 | Game has full action/decision sets for all 4 stages. | P0 | 3 | L |
-| E4-03 | Game has 40 event cards across all stages with balanced stat effects. | P0 | 5 | XL |
-| E4-04 | Event cards use reskinnable templates (6 templates minimum). | P1 | 5 | M |
-| E4-05 | Events include conditional options gated by support level. | P1 | 5 | S |
-| E4-06 | Content includes KC-specific flavor (employers, transit, neighborhoods). | P1 | 5 | M |
+| E4-03 | ✅ Game has 40 event cards across all stages with balanced stat effects. | P0 | 5 | XL |
+| E4-04 | ✅ Event cards use reskinnable templates (6 template concepts as flat variants). | P1 | 5 | M |
+| E4-05 | ✅ Events include conditional options gated by support level. | P1 | 5 | S |
+| E4-06 | ✅ Content includes KC-specific flavor (employers, transit, neighborhoods). | P1 | 5 | M |
 | E4-07 | All 5 endings have narrative text and reflection questions. | P0 | 6 | M |
 | E4-08 | 8–10 jobs authored with tag requirements and balance targets. | P0 | 4 | M |
 

@@ -124,6 +124,7 @@ pub async fn draw_event(
 
             HttpResponse::Ok().json(serde_json::json!({
                 "event": &*pending,
+                "playerSupport": state.support,
             }))
         }
         _ => HttpResponse::BadRequest().json(serde_json::json!({

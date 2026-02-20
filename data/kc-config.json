@@ -15,6 +15,12 @@
         "gasPerMonth": [
             80,
             150
+        ],
+        "busRoutes": [
+            "Main MAX",
+            "Prospect MAX",
+            "Route 39 (39th Street)",
+            "Route 71 (Blue Parkway)"
         ]
     },
     "industries": [
@@ -25,12 +31,41 @@
         "Education",
         "Food Service"
     ],
+    "employers": {
+        "Healthcare": [
+            "Truman Medical Center",
+            "Children's Mercy"
+        ],
+        "Logistics & Warehousing": [
+            "Amazon KCK",
+            "USPS Distribution Center"
+        ],
+        "Construction Trades": [
+            "JE Dunn Construction",
+            "McCownGordon"
+        ],
+        "Information Technology": [
+            "Cerner",
+            "Garmin",
+            "Sprint/T-Mobile"
+        ],
+        "Education": [
+            "KCPS",
+            "Center School District"
+        ],
+        "Food Service": [
+            "Joe's KC BBQ",
+            "Town Topic",
+            "Gates BBQ"
+        ]
+    },
     "education": {
         "communityCollege": "Johnson County Community College",
         "trainingPrograms": [
             "KC Area Technical School",
             "Full Employment Council",
-            "Workforce Partnership"
+            "Workforce Partnership",
+            "KC Scholars"
         ]
     },
     "wageBands": {
@@ -47,12 +82,73 @@
             80000
         ]
     },
+    "costOfLiving": {
+        "rent": {
+            "shared": [
+                350,
+                550
+            ],
+            "studio": [
+                600,
+                800
+            ],
+            "oneBedroom": [
+                750,
+                1000
+            ]
+        },
+        "food": {
+            "groceriesMonthly": [
+                150,
+                250
+            ],
+            "fastFoodMeal": [
+                7,
+                12
+            ]
+        },
+        "utilities": {
+            "electricMonthly": [
+                80,
+                130
+            ],
+            "phoneMonthly": [
+                40,
+                70
+            ]
+        }
+    },
     "neighborhoods": [
         "Westport",
         "Midtown",
         "Northeast",
         "Waldo",
         "Independence",
-        "Overland Park"
-    ]
+        "Overland Park",
+        "Ivanhoe",
+        "Swope Park",
+        "Raytown",
+        "Crossroads"
+    ],
+    "landmarks": {
+        "schools": [
+            "KCPS",
+            "Center School District",
+            "Hickman Mills"
+        ],
+        "communityCenters": [
+            "Ivanhoe Community Center",
+            "Linwood YMCA",
+            "Swope Community Center"
+        ],
+        "libraries": [
+            "Kansas City Public Library",
+            "Mid-Continent Public Library"
+        ],
+        "cultural": [
+            "Kauffman Center",
+            "Nelson-Atkins Museum",
+            "18th & Vine Jazz District"
+        ]
+    }
 }

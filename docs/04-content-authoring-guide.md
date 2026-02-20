@@ -60,15 +60,21 @@ Every event card is a JSON object in `data/events.json`.
 | `options[].description` | Yes | 1 sentence explaining what happens. |
 | `options[].effects` | Yes | 1–3 stat effects. |
 | `options[].delayedEffects` | No | Effects that trigger N turns later. |
-| `options[].requiresSupport` | No | Minimum support to see this option. |
+| `options[].requiresSupport` | No | Minimum support to select this option. Enforced by backend (`turn_runner.rs`) and locked in frontend UI. |
 
-### Writing Guidelines
+### Current Deck Inventory (Sprint 5 — Complete)
 
-- **No moralizing.** Don't label options as "good" or "bad." Let the tradeoffs speak.
-- **Every option has a cost.** Even the "best" option should cost something (time, money, stress, or support).
-- **At least one cheap option.** Players in bad states need a survivable (if painful) path.
-- **Use KC flavor when possible.** Reference bus routes, neighborhoods, local employers — but keep it light. The game should still make sense without KC knowledge.
-- **Reskin-friendly.** If a card could work across stages with different flavor text, write it as a template (see Reskinning below).
+| Stage | Count | Examples |
+|-------|:-----:|----------|
+| A: Middle School | 8 | Phone Breaks, New Teacher, Family Responsibilities, School Supplies, Talent Show |
+| B: High School | 12 | Bus Cancelled, Test Prep Costs, Group Project Tension, Internship Offer, Burnout Warning |
+| C: Post-High | 8 | FAFSA Surprise, Housing Shift, Networking Event, Family Pressure |
+| D: Early Adult | 12 | Burnout Warning, Side Hustle, Friend Loan, Transit Pass, Family Emergency |
+| **Total** | **40** | |
+
+> **Rarity distribution**: Common 60% / Uncommon 30% / Rare 10% — enforced via weighted draw in `event_deck.rs` (weights 6.0/3.0/1.0).
+
+> **Conditional options**: 6 options across 6 cards use `requiresSupport` (values 3–5). Backend rejects locked choices; frontend shows 🔒 overlay and disables click.
 
 ---
 
@@ -112,14 +118,22 @@ Some events are universal concepts that recur at different life stages. Author t
 
 ### Core Templates to Author
 
-| Template | Concept | Stages |
-|----------|---------|--------|
-| Transportation issue | Getting to school/work breaks down | A, B, C, D |
-| Unexpected expense | Something costs money you didn't plan for | A, B, C, D |
-| Social conflict | Friction with friend/peer/roommate | A, B, D |
-| Opportunity knocks | A chance to gain skills/money/connections | B, C, D |
-| Burnout warning | Stress is catching up to you | B, D |
-| Family needs | Family asks for your time or money | A, C, D |
+| Template | Concept | Stages | Status |
+|----------|---------|--------|--------|
+| Transportation issue | Getting to school/work breaks down | A, B, C, D | ✅ Authored |
+| Unexpected expense | Something costs money you didn't plan for | A, B, C, D | ✅ Authored |
+| Social conflict | Friction with friend/peer/roommate | A, B, D | ✅ Authored |
+| Opportunity knocks | A chance to gain skills/money/connections | B, C, D | ✅ Authored |
+| Burnout warning | Stress is catching up to you | B, D | ✅ Authored |
+| Family needs | Family asks for your time or money | A, C, D | ✅ Authored |
+
+### Writing Guidelines
+
+- **No moralizing.** Don't label options as "good" or "bad." Let the tradeoffs speak.
+- **Every option has a cost.** Even the "best" option should cost something (time, money, stress, or support).
+- **At least one cheap option.** Players in bad states need a survivable (if painful) path.
+- **Use KC flavor when possible.** Reference bus routes, neighborhoods, local employers — but keep it light. The game should still make sense without KC knowledge.
+- **Reskin-friendly.** If a card could work across stages with different flavor text, write it as a template (see Reskinning below).
 
 ---
 

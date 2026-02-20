@@ -36,11 +36,11 @@ pub fn draw_event<'a>(
     Some(eligible.last().unwrap())
 }
 
-/// Rarity weights: Common cards appear more often.
+/// Rarity weights: Common ~60%, Uncommon ~30%, Rare ~10%.
 fn rarity_weight(rarity: &Rarity) -> f64 {
     match rarity {
-        Rarity::Common => 3.0,
-        Rarity::Uncommon => 2.0,
+        Rarity::Common => 6.0,
+        Rarity::Uncommon => 3.0,
         Rarity::Rare => 1.0,
     }
 }

@@ -168,19 +168,21 @@ const Components = {
     },
 
     // ─── Event Option Card ──────────────────────────────
-    eventOptionCard(option, index, isSelected) {
+    eventOptionCard(option, index, isSelected, playerSupport = 10) {
         const effectsHtml = this.effectTags(option.effects);
+        const locked = option.requiresSupport && playerSupport < option.requiresSupport;
         const requiresSupport = option.requiresSupport
-            ? `<div class="requires-support">🤝 Requires Support ≥ ${option.requiresSupport}</div>`
+            ? `<div class="requires-support ${locked ? 'locked' : 'unlocked'}">🤝 Requires Support ≥ ${option.requiresSupport}</div>`
             : '';
         return `
-            <div class="event-option-card ${isSelected ? 'selected' : ''}"
+            <div class="event-option-card ${isSelected ? 'selected' : ''} ${locked ? 'locked' : ''}"
                  data-index="${index}"
-                 onclick="Game.selectEventOption(this, ${index})">
+                 onclick="${locked ? '' : `Game.selectEventOption(this, ${index})`}">
                 <div class="event-option-name">${option.label}</div>
                 <div class="event-option-desc">${option.description}</div>
                 <div class="event-option-effects">${effectsHtml}</div>
                 ${requiresSupport}
+                ${locked ? '<div class="lock-overlay">🔒 Not Enough Support</div>' : ''}
             </div>
         `;
     },

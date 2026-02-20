@@ -389,6 +389,28 @@ body {
     font-weight: 600;
 }
 
+.requires-support.locked {
+    color: var(--danger);
+}
+
+.requires-support.unlocked {
+    color: var(--success);
+}
+
+/* ─── Support-gated Event Option Cards ───────────────── */
+.event-option-card.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: rgba(248, 113, 113, 0.3);
+    position: relative;
+}
+
+.event-option-card.locked:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: rgba(248, 113, 113, 0.3);
+}
+
 .selected-count {
     text-align: center;
     color: var(--text-secondary);

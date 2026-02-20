@@ -988,5 +988,587 @@
         ]
       }
     ]
+  },
+  {
+    "id": "evt_family_chores_a",
+    "title": "Family Responsibilities",
+    "flavorText": "Your abuela needs help around the house every day after school. There's no one else to do it.",
+    "stages": ["middle-school"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Help out every day",
+        "description": "Family comes first, but you can't do clubs.",
+        "effects": [
+          { "stat": "support", "delta": 2 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      },
+      {
+        "label": "Split time with a cousin",
+        "description": "Ask your cousin to alternate days.",
+        "effects": [
+          { "stat": "support", "delta": 1 },
+          { "stat": "stress", "delta": 2 }
+        ]
+      },
+      {
+        "label": "Focus on school",
+        "description": "Tell your family you need to study. They understand... mostly.",
+        "effects": [
+          { "stat": "support", "delta": -2 },
+          { "stat": "stress", "delta": -3 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_school_supplies_a",
+    "title": "School Supplies Needed",
+    "flavorText": "The teacher hands out a supply list for a big project. You need poster board, markers, and a binder.",
+    "stages": ["middle-school"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Buy everything",
+        "description": "Hit up the Dollar Tree on Independence Ave.",
+        "effects": [
+          { "stat": "money", "delta": -15 }
+        ]
+      },
+      {
+        "label": "Borrow from friends",
+        "description": "Your classmates have extra supplies — ask around.",
+        "effects": [
+          { "stat": "support", "delta": -1 },
+          { "stat": "stress", "delta": 3 }
+        ]
+      },
+      {
+        "label": "Ask the teacher",
+        "description": "The school has a supply closet for students who need it.",
+        "effects": [
+          { "stat": "stress", "delta": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_talent_show_a",
+    "title": "Talent Show Tryouts",
+    "flavorText": "Your school is hosting a talent show. Your friends want you to form a group and audition.",
+    "stages": ["middle-school"],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Go for it",
+        "description": "Practice after school. You might surprise yourself.",
+        "effects": [
+          { "stat": "support", "delta": 2 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      },
+      {
+        "label": "Help backstage instead",
+        "description": "You're better behind the scenes anyway.",
+        "effects": [
+          { "stat": "support", "delta": 1 }
+        ]
+      },
+      {
+        "label": "Skip it",
+        "description": "Talent shows aren't really your thing.",
+        "effects": [
+          { "stat": "stress", "delta": -2 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_bus_cancelled_b",
+    "title": "Bus Route Cancelled",
+    "flavorText": "KCATA just announced your route is cut due to budget issues. Getting to school just got harder.",
+    "stages": ["high-school"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Walk or bike",
+        "description": "It's a long walk down Prospect Ave, but it's free.",
+        "effects": [
+          { "stat": "stress", "delta": 8 }
+        ]
+      },
+      {
+        "label": "Carpool with neighbors",
+        "description": "A neighbor drives past your school. Ask for a ride.",
+        "effects": [
+          { "stat": "support", "delta": -1 },
+          { "stat": "money", "delta": -10 }
+        ]
+      },
+      {
+        "label": "Ask a mentor for help",
+        "description": "Your support network might know someone who can help.",
+        "effects": [
+          { "stat": "stress", "delta": 3 }
+        ],
+        "requiresSupport": 4
+      }
+    ]
+  },
+  {
+    "id": "evt_test_prep_b",
+    "title": "Test Prep Costs",
+    "flavorText": "ACT prep classes are being offered at the community center in Ivanhoe. They're not free.",
+    "stages": ["high-school"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Pay for the class",
+        "description": "It could make a big difference on your score.",
+        "effects": [
+          { "stat": "money", "delta": -40 },
+          { "stat": "stress", "delta": -5 }
+        ]
+      },
+      {
+        "label": "Self-study at the library",
+        "description": "The Kansas City Public Library has free prep books.",
+        "effects": [
+          { "stat": "stress", "delta": 5 }
+        ]
+      },
+      {
+        "label": "Skip it",
+        "description": "You'll wing it. Tests aren't everything.",
+        "effects": [
+          { "stat": "stress", "delta": -3 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_group_project_b",
+    "title": "Group Project Tension",
+    "flavorText": "Your group project partner isn't doing their share. The deadline is next week.",
+    "stages": ["high-school"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Do their part too",
+        "description": "It's stressful, but you'll get a good grade.",
+        "effects": [
+          { "stat": "stress", "delta": 10 }
+        ]
+      },
+      {
+        "label": "Talk to the teacher",
+        "description": "Ask for help mediating the situation.",
+        "effects": [
+          { "stat": "stress", "delta": 3 },
+          { "stat": "support", "delta": -1 }
+        ]
+      },
+      {
+        "label": "Confront them",
+        "description": "Tell them to step up. It might get awkward.",
+        "effects": [
+          { "stat": "support", "delta": -2 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_internship_b",
+    "title": "Unpaid Internship Offer",
+    "flavorText": "A small business on 18th Street in the Crossroads offers you a summer internship. No pay, but you'd learn a lot.",
+    "stages": ["high-school"],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Take it",
+        "description": "The experience could open doors.",
+        "effects": [
+          { "stat": "stress", "delta": 5 },
+          { "stat": "support", "delta": 2 }
+        ]
+      },
+      {
+        "label": "Negotiate for a stipend",
+        "description": "You need to eat. Ask if they can cover bus fare at least.",
+        "effects": [
+          { "stat": "stress", "delta": 3 }
+        ],
+        "requiresSupport": 5
+      },
+      {
+        "label": "Decline",
+        "description": "You need a paying job this summer.",
+        "effects": [
+          { "stat": "stress", "delta": -2 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_burnout_b",
+    "title": "Burnout Warning",
+    "flavorText": "You've been pushing hard at school, work, and home. Your body is telling you to slow down.",
+    "stages": ["high-school"],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Take a mental health day",
+        "description": "Stay home, rest, and reset.",
+        "effects": [
+          { "stat": "stress", "delta": -15 }
+        ]
+      },
+      {
+        "label": "Power through",
+        "description": "You can rest when you're done.",
+        "effects": [
+          { "stat": "stress", "delta": 10 }
+        ]
+      },
+      {
+        "label": "Talk to someone you trust",
+        "description": "Open up to a counselor or mentor.",
+        "effects": [
+          { "stat": "stress", "delta": -10 },
+          { "stat": "support", "delta": 1 }
+        ],
+        "requiresSupport": 3
+      }
+    ]
+  },
+  {
+    "id": "evt_family_help_b",
+    "title": "Family Needs Your Help",
+    "flavorText": "Your mom got extra shifts at the warehouse. She needs you to watch your younger siblings after school.",
+    "stages": ["high-school"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Watch the kids",
+        "description": "You'll miss study time, but family needs you.",
+        "effects": [
+          { "stat": "support", "delta": 2 },
+          { "stat": "stress", "delta": 8 }
+        ]
+      },
+      {
+        "label": "Find a neighbor to help",
+        "description": "Ms. Johnson next door might be willing.",
+        "effects": [
+          { "stat": "money", "delta": -15 },
+          { "stat": "stress", "delta": 3 }
+        ]
+      },
+      {
+        "label": "Say you can't",
+        "description": "You have too much going on. It causes tension.",
+        "effects": [
+          { "stat": "support", "delta": -3 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_fafsa_surprise_c",
+    "title": "FAFSA Surprise",
+    "flavorText": "Your financial aid letter arrives. The numbers are different from what you expected.",
+    "stages": ["post-high"],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Appeal the decision",
+        "description": "Write a letter explaining your family situation.",
+        "effects": [
+          { "stat": "money", "delta": 50 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      },
+      {
+        "label": "Accept what you got",
+        "description": "It's less than hoped, but it's something.",
+        "effects": [
+          { "stat": "stress", "delta": 8 }
+        ]
+      },
+      {
+        "label": "Look for scholarships",
+        "description": "The KC Scholars program might help.",
+        "effects": [
+          { "stat": "stress", "delta": 5 },
+          { "stat": "money", "delta": 30 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_housing_shift_c",
+    "title": "Housing Shift",
+    "flavorText": "Your lease is up and rent is going up $200/month. Midtown KC is getting expensive.",
+    "stages": ["post-high"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Move to a cheaper area",
+        "description": "Look at places in Raytown or Independence. Longer commute.",
+        "effects": [
+          { "stat": "stress", "delta": 8 },
+          { "stat": "money", "delta": 25 }
+        ]
+      },
+      {
+        "label": "Find a roommate",
+        "description": "Split costs with someone from work.",
+        "effects": [
+          { "stat": "stress", "delta": 5 },
+          { "stat": "support", "delta": 1 }
+        ]
+      },
+      {
+        "label": "Move back home",
+        "description": "Swallow your pride and save money.",
+        "effects": [
+          { "stat": "money", "delta": 40 },
+          { "stat": "support", "delta": -1 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_networking_c",
+    "title": "Networking Event",
+    "flavorText": "A career networking event is happening at the Kauffman Center. Free food, but you'd have to dress up and talk to strangers.",
+    "stages": ["post-high"],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Go and network",
+        "description": "Push yourself out of your comfort zone.",
+        "effects": [
+          { "stat": "support", "delta": 2 },
+          { "stat": "stress", "delta": 5 },
+          { "stat": "money", "delta": -10 }
+        ]
+      },
+      {
+        "label": "Go with a friend",
+        "description": "It's less scary with backup.",
+        "effects": [
+          { "stat": "support", "delta": 1 },
+          { "stat": "stress", "delta": 2 }
+        ],
+        "requiresSupport": 4
+      },
+      {
+        "label": "Skip it",
+        "description": "You're not ready for that yet.",
+        "effects": [
+          { "stat": "stress", "delta": -3 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_family_pressure_c",
+    "title": "Family Pressure",
+    "flavorText": "Your family wants you to send money home every month. They're counting on you.",
+    "stages": ["post-high"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Send $50/month",
+        "description": "It's tight, but they need it.",
+        "effects": [
+          { "stat": "money", "delta": -50 },
+          { "stat": "support", "delta": 2 }
+        ]
+      },
+      {
+        "label": "Send what you can",
+        "description": "Some months might be $10, some $30.",
+        "effects": [
+          { "stat": "money", "delta": -20 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      },
+      {
+        "label": "Explain you can't right now",
+        "description": "You're barely getting by yourself. Hardest conversation ever.",
+        "effects": [
+          { "stat": "support", "delta": -2 },
+          { "stat": "stress", "delta": 10 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_burnout_d",
+    "title": "Burnout Warning",
+    "flavorText": "Between work, bills, and trying to keep up, you haven't had a full night's sleep in two weeks.",
+    "stages": ["early-adult"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Call in sick",
+        "description": "One day off to recover. Your paycheck will be lighter.",
+        "effects": [
+          { "stat": "stress", "delta": -15 },
+          { "stat": "money", "delta": -30 }
+        ]
+      },
+      {
+        "label": "Lean on your support system",
+        "description": "Ask for help cooking, errands, or just company.",
+        "effects": [
+          { "stat": "stress", "delta": -10 }
+        ],
+        "requiresSupport": 5
+      },
+      {
+        "label": "Keep going",
+        "description": "Sleep is for people without bills.",
+        "effects": [
+          { "stat": "stress", "delta": 12 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_side_hustle_d",
+    "title": "Side Hustle Opportunity",
+    "flavorText": "A friend tells you about a gig doing deliveries on weekends. The pay is decent but it eats your free time.",
+    "stages": ["early-adult"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Take the gig",
+        "description": "More money, less rest.",
+        "effects": [
+          { "stat": "money", "delta": 60 },
+          { "stat": "stress", "delta": 10 }
+        ]
+      },
+      {
+        "label": "Do it for a month",
+        "description": "Short-term boost without long-term burnout.",
+        "effects": [
+          { "stat": "money", "delta": 30 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      },
+      {
+        "label": "Pass",
+        "description": "You need your weekends to recharge.",
+        "effects": [
+          { "stat": "stress", "delta": -3 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_friend_loan_d",
+    "title": "Friend Asks for Money",
+    "flavorText": "Your close friend is behind on their electric bill. They ask to borrow $100 until Friday.",
+    "stages": ["early-adult"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Lend the money",
+        "description": "They'd do the same for you. Probably.",
+        "effects": [
+          { "stat": "money", "delta": -100 },
+          { "stat": "support", "delta": 2 }
+        ]
+      },
+      {
+        "label": "Offer $50",
+        "description": "It's what you can spare without breaking yourself.",
+        "effects": [
+          { "stat": "money", "delta": -50 },
+          { "stat": "support", "delta": 1 }
+        ]
+      },
+      {
+        "label": "Say you can't",
+        "description": "You literally don't have it right now.",
+        "effects": [
+          { "stat": "support", "delta": -2 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_transport_breakdown_d",
+    "title": "Transit Pass Expired",
+    "flavorText": "Your KCATA monthly pass expired and the price went up. Getting to work on the Main MAX line just got more expensive.",
+    "stages": ["early-adult"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Renew the pass",
+        "description": "It's the most reliable option.",
+        "effects": [
+          { "stat": "money", "delta": -50 }
+        ]
+      },
+      {
+        "label": "Ride-share with a coworker",
+        "description": "Split gas money. Better for the budget.",
+        "effects": [
+          { "stat": "money", "delta": -20 },
+          { "stat": "support", "delta": 1 }
+        ]
+      },
+      {
+        "label": "Bike to work",
+        "description": "Save money but add stress and time.",
+        "effects": [
+          { "stat": "stress", "delta": 8 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_family_emergency_d",
+    "title": "Family Emergency",
+    "flavorText": "Your dad is in the hospital. The family is scrambling to cover costs and someone needs to be there.",
+    "stages": ["early-adult"],
+    "rarity": "rare",
+    "options": [
+      {
+        "label": "Take time off work",
+        "description": "Family comes first, no matter what.",
+        "effects": [
+          { "stat": "money", "delta": -75 },
+          { "stat": "support", "delta": 3 },
+          { "stat": "stress", "delta": 10 }
+        ]
+      },
+      {
+        "label": "Help financially",
+        "description": "You can't take off, but you can send money.",
+        "effects": [
+          { "stat": "money", "delta": -120 },
+          { "stat": "stress", "delta": 8 }
+        ]
+      },
+      {
+        "label": "Do what you can after work",
+        "description": "Visit every evening. It's exhausting but you're there.",
+        "effects": [
+          { "stat": "stress", "delta": 15 },
+          { "stat": "support", "delta": 1 }
+        ]
+      }
+    ]
   }
 ]
