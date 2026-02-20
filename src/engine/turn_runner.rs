@@ -38,6 +38,18 @@ pub fn run_turn(
     data: &GameData,
     rng: &mut ChaCha8Rng,
 ) -> TurnResult {
+    run_turn_with_event(state, choices, data, rng, None)
+}
+
+/// Run one complete turn, optionally with a pre-drawn event card.
+/// If `pre_drawn_event` is Some, that event is used instead of drawing a new one.
+pub fn run_turn_with_event(
+    state: &mut GameState,
+    choices: &PlayerChoices,
+    data: &GameData,
+    rng: &mut ChaCha8Rng,
+    pre_drawn_event: Option<EventCard>,
+) -> TurnResult {
     let mut feedback = Vec::new();
 
     // === Phase 1: Plan (Allocate Time) ===
@@ -65,11 +77,17 @@ pub fn run_turn(
     }
 
     // === Phase 3: Event (Draw a Life Card) ===
-    let event_drawn = event_deck::draw_event(&data.events, &state.current_stage, &state.used_event_ids, rng)
-        .cloned();
+    // Use pre-drawn event if available, otherwise draw a new one
+    let event_drawn = pre_drawn_event.or_else(|| {
+        event_deck::draw_event(&data.events, &state.current_stage, &state.used_event_ids, rng)
+            .cloned()
+    });
 
     if let Some(ref event) = event_drawn {
-        state.used_event_ids.push(event.id.clone());
+        // Mark as used (avoid duplication if already in the list)
+        if !state.used_event_ids.contains(&event.id) {
+            state.used_event_ids.push(event.id.clone());
+        }
 
         // Apply event response if player chose one
         if let Some(opt_idx) = choices.event_option_index {

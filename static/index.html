@@ -18,10 +18,10 @@
 
         <main class="game-main">
             <div class="stats-bar" id="stats-bar">
-                <div class="stat">💰 <span id="stat-money">$100</span></div>
-                <div class="stat">😰 <span id="stat-stress">20</span>/100</div>
-                <div class="stat">🤝 <span id="stat-support">5</span>/10</div>
-                <div class="stat">⏰ <span id="stat-time">3</span> slots</div>
+                <div class="stat" id="stat-money-wrap">💰 <span id="stat-money">$100</span></div>
+                <div class="stat" id="stat-stress-wrap">😰 <span id="stat-stress">20/100</span></div>
+                <div class="stat" id="stat-support-wrap">🤝 <span id="stat-support">5/10</span></div>
+                <div class="stat" id="stat-time-wrap">⏰ <span id="stat-time">3 slots</span></div>
             </div>
 
             <div class="credentials-bar" id="credentials-bar">
@@ -33,20 +33,32 @@
                 <span id="turn-label">Turn: 1</span>
             </div>
 
-            <div class="phase-content" id="phase-content">
-                <div class="placeholder-card">
-                    <h2>Welcome to Life Roguelite</h2>
-                    <p>You start as a middle schooler and progress through 4 life stages. Make choices, draw Life Event
-                        cards, and keep your life stable while pursuing goals.</p>
-                    <p class="hint">The game teaches tradeoffs, recovery, and planning — not "pick the perfect path."
-                    </p>
-                    <div class="seed-input-group">
-                        <input type="text" id="seed-input" placeholder="Classroom seed (optional)" maxlength="16">
+            <div class="game-body">
+                <div class="phase-content" id="phase-content">
+                    <div class="placeholder-card">
+                        <div class="start-icon">🎲</div>
+                        <h2>Life Roguelite</h2>
+                        <p>You start as a middle schooler and progress through 4 life stages. Make choices, draw Life
+                            Event cards, and keep your life stable while pursuing goals.</p>
+                        <p class="hint">The game teaches tradeoffs, recovery, and planning — not "pick the perfect
+                            path."</p>
+                        <div class="seed-input-group">
+                            <input type="text" id="seed-input" placeholder="Classroom seed (optional)" maxlength="16">
+                        </div>
+                        <button id="btn-new-game" class="btn btn-primary">🎮 Start New Game</button>
                     </div>
-                    <button id="btn-new-game" class="btn btn-primary">🎮 Start New Game</button>
                 </div>
+
+                <aside class="turn-log-panel" id="turn-log-panel">
+                    <h3>📜 Turn Log</h3>
+                    <div class="turn-log" id="turn-log">
+                        <div class="log-empty">No turns yet</div>
+                    </div>
+                </aside>
             </div>
         </main>
+
+        <div id="toast-container" class="toast-container"></div>
 
         <footer class="game-footer">
             <p>Life Roguelite v0.1.0</p>
@@ -54,6 +66,7 @@
     </div>
 
     <script src="/js/api.js"></script>
+    <script src="/js/components.js"></script>
     <script src="/js/app.js"></script>
 </body>
 

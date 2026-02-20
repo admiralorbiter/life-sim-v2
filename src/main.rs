@@ -21,6 +21,7 @@ async fn main() -> std::io::Result<()> {
     let app_state = web::Data::new(api::routes::AppState {
         game: Mutex::new(None),
         rng: Mutex::new(None),
+        pending_event: Mutex::new(None),
     });
 
     println!("\n🎮 Life Roguelite server starting...");

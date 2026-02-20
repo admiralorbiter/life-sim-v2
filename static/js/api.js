@@ -20,6 +20,11 @@ const API = {
         return res.json();
     },
 
+    async drawEvent() {
+        const res = await fetch('/api/draw_event');
+        return res.json();
+    },
+
     async submitTurn(choices) {
         const res = await fetch('/api/submit_turn', {
             method: 'POST',

@@ -5,12 +5,15 @@ use crate::engine::game_state::GameState;
 use crate::engine::rng;
 use crate::engine::turn_runner::{self, PlayerChoices};
 use crate::engine::event_deck;
+use crate::models::EventCard;
 use rand_chacha::ChaCha8Rng;
 
 /// Shared server state: one active game per process (MVP).
 pub struct AppState {
     pub game: Mutex<Option<GameState>>,
     pub rng: Mutex<Option<ChaCha8Rng>>,
+    /// The event card drawn for the current turn (preview before player picks an option).
+    pub pending_event: Mutex<Option<EventCard>>,
 }
 
 /// Health check endpoint.
@@ -37,6 +40,7 @@ pub async fn new_game(
 
     *app_state.game.lock().unwrap() = Some(game.clone());
     *app_state.rng.lock().unwrap() = Some(game_rng);
+    *app_state.pending_event.lock().unwrap() = None;
 
     HttpResponse::Ok().json(serde_json::json!({
         "state": game,
@@ -97,7 +101,39 @@ pub async fn phase_data(
     }
 }
 
+/// GET /api/draw_event — Draw a random event card for preview (before player picks an option).
+/// The drawn card is cached so submit_turn uses the same one.
+pub async fn draw_event(
+    app_state: web::Data<AppState>,
+    game_data: web::Data<GameData>,
+) -> impl Responder {
+    let game = app_state.game.lock().unwrap();
+    let mut game_rng = app_state.rng.lock().unwrap();
+    let mut pending = app_state.pending_event.lock().unwrap();
+
+    match (&*game, &mut *game_rng) {
+        (Some(state), Some(rng_ref)) => {
+            // Draw an event if we haven't already for this turn
+            if pending.is_none() {
+                let drawn = event_deck::draw_event(
+                    &game_data.events, &state.current_stage,
+                    &state.used_event_ids, rng_ref,
+                );
+                *pending = drawn.cloned();
+            }
+
+            HttpResponse::Ok().json(serde_json::json!({
+                "event": &*pending,
+            }))
+        }
+        _ => HttpResponse::BadRequest().json(serde_json::json!({
+            "error": "No game in progress."
+        })),
+    }
+}
+
 /// POST /api/submit_turn — Submit choices and run one turn.
+/// If a pending event was drawn via /api/draw_event, that event is used.
 pub async fn submit_turn(
     app_state: web::Data<AppState>,
     game_data: web::Data<GameData>,
@@ -105,6 +141,7 @@ pub async fn submit_turn(
 ) -> impl Responder {
     let mut game = app_state.game.lock().unwrap();
     let mut game_rng = app_state.rng.lock().unwrap();
+    let mut pending = app_state.pending_event.lock().unwrap();
 
     let (state, rng_ref) = match (&mut *game, &mut *game_rng) {
         (Some(s), Some(r)) => (s, r),
@@ -146,7 +183,10 @@ pub async fn submit_turn(
         event_option_index,
     };
 
-    let result = turn_runner::run_turn(state, &choices, &game_data, rng_ref);
+    // If we have a pending pre-drawn event, pass it to the turn runner
+    let result = turn_runner::run_turn_with_event(
+        state, &choices, &game_data, rng_ref, pending.take(),
+    );
 
     HttpResponse::Ok().json(serde_json::json!({
         "state": &*state,
@@ -215,6 +255,7 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
             .route("/new_game", web::post().to(new_game))
             .route("/state", web::get().to(get_state))
             .route("/phase_data", web::get().to(phase_data))
+            .route("/draw_event", web::get().to(draw_event))
             .route("/submit_turn", web::post().to(submit_turn))
             .route("/endings", web::get().to(get_ending))
     );

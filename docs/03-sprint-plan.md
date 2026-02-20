@@ -60,20 +60,19 @@
 **Goal:** Playable single-stage prototype — Stage A only, in the browser.
 
 ### Tasks
-- [ ] Implement REST API endpoints in `src/api/routes.rs`:
+- [x] Implement REST API endpoints in `src/api/routes.rs`:
   - `POST /api/new_game` — create game with seed
   - `GET /api/state` — return current state as JSON
-  - `POST /api/submit_actions` — Phase 1
-  - `POST /api/submit_decision` — Phase 2
-  - `GET /api/draw_event` — Phase 3 card draw
-  - `POST /api/submit_event_response` — Phase 3 response
-  - `POST /api/advance_turn` — next turn
-- [ ] Build `static/index.html` — single-page game UI layout
-- [ ] Build `static/css/style.css` — stats bar, card styling, responsive layout
-- [ ] Build `static/js/api.js` — fetch wrappers for all REST endpoints
-- [ ] Build `static/js/components.js` — render stats bar, action picker, decision panel, event card, feedback toast
-- [ ] Build `static/js/app.js` — game controller: phase state machine, fetches + renders
-- [ ] Mobile-responsive layout (single column, stacked phases)
+  - `POST /api/submit_turn` — combined Phase 1-4 submission
+  - `GET /api/draw_event` — Phase 3 card preview
+  - `GET /api/phase_data` — available actions/decisions per stage
+  - `GET /api/endings` — resolve final ending
+- [x] Build `static/index.html` — single-page game UI layout
+- [x] Build `static/css/style.css` — stats bar, card styling, responsive layout
+- [x] Build `static/js/api.js` — fetch wrappers for all REST endpoints
+- [x] Build `static/js/components.js` — render stats bar, action picker, decision panel, event card, feedback toast
+- [x] Build `static/js/app.js` — game controller: phase state machine, fetches + renders
+- [x] Mobile-responsive layout (single column, stacked phases)
 
 ### Definition of Done
 - Player can play through Stage A (3–4 turns) in the browser via `cargo run`
