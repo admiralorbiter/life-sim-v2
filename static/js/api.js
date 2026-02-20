@@ -45,6 +45,11 @@ const API = {
     },
 
     // ─── Debug Endpoints ────────────────────────────────
+    async getJobs() {
+        const res = await fetch('/api/jobs');
+        return res.json();
+    },
+
     async debugSkipStage() {
         const res = await fetch('/api/debug/skip_stage', { method: 'POST' });
         return res.json();

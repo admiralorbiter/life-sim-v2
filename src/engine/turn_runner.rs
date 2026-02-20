@@ -113,6 +113,7 @@ pub fn run_turn_with_event(
                 if let Some(job) = data.jobs.iter().find(|j| j.id == *job_id) {
                     feedback.push(format!("💼 Started working as: {}", job.title));
                     state.current_job = Some(job.clone());
+                    state.job_turns = 0; // Reset growth counter on job change
                 }
             }
 
@@ -151,9 +152,25 @@ pub fn run_turn_with_event(
     }
 
     // === Phase 4: Feedback ===
-    // Apply job income
+    // Apply job income (with misalignment penalty)
     let job_msgs = stat_calculator::apply_job_income(state);
     feedback.extend(job_msgs);
+
+    // Job growth: track turns worked, grant growth tag when threshold reached
+    if let Some(ref job) = state.current_job {
+        if job.growth_rate > 0 {
+            state.job_turns += 1;
+            if state.job_turns >= job.growth_rate {
+                if let Some(ref tag) = job.growth_tag {
+                    if !state.credentials.contains(tag) {
+                        state.credentials.push(tag.clone());
+                        feedback.push(format!("🌱 Growth! Earned: {}", tag));
+                    }
+                }
+                state.job_turns = 0; // Reset after earning
+            }
+        }
+    }
 
     // Apply monthly bills (Stage D only)
     if state.current_stage == Stage::EarlyAdult {
@@ -408,5 +425,103 @@ mod tests {
         assert!(state.money >= 0, "Emergency fund should cover debt");
         assert_eq!(state.emergency_fund, 30, "Fund should be reduced by $20");
         assert!(!msgs.is_empty(), "Should produce feedback");
+    }
+
+    #[test]
+    fn test_job_growth_grants_tag() {
+        let data = load_test_data();
+        let mut state = GameState::new("GROWTH_TEST".to_string());
+        let mut rng = create_rng("GROWTH_TEST");
+
+        // Give the player a growth job: Helpdesk (growth_rate=3, growth_tag="IT Support Specialist")
+        state.current_stage = Stage::EarlyAdult;
+        state.current_turn = 14;
+        state.credentials.push("IT Fundamentals".to_string()); // required tag
+        let helpdesk = data.jobs.iter().find(|j| j.id == "job_helpdesk").unwrap();
+        state.current_job = Some(helpdesk.clone());
+        state.job_turns = 0;
+
+        // Run 3 turns — growth_rate is 3, so we earn the tag on the 3rd turn
+        for i in 0..3 {
+            let choices = PlayerChoices {
+                action_ids: vec!["act_rest".to_string()],
+                decision_id: String::new(),
+                decision_option_index: 0,
+                event_option_index: Some(0),
+            };
+            let result = run_turn(&mut state, &choices, &data, &mut rng);
+
+            if i < 2 {
+                assert!(!state.credentials.contains(&"IT Support Specialist".to_string()),
+                    "Should NOT have growth tag after {} turns", i + 1);
+            } else {
+                assert!(state.credentials.contains(&"IT Support Specialist".to_string()),
+                    "Should have growth tag after 3 turns");
+                assert!(result.feedback.iter().any(|f| f.contains("Growth")),
+                    "Should have growth feedback");
+            }
+        }
+    }
+
+    #[test]
+    fn test_no_growth_on_zero_rate() {
+        let data = load_test_data();
+        let mut state = GameState::new("NOGROWTH_TEST".to_string());
+        let mut rng = create_rng("NOGROWTH_TEST");
+
+        // Fast food has growth_rate=0, no growth
+        state.current_stage = Stage::EarlyAdult;
+        state.current_turn = 14;
+        let fast_food = data.jobs.iter().find(|j| j.id == "job_fast_food").unwrap();
+        state.current_job = Some(fast_food.clone());
+        state.job_turns = 0;
+
+        for _ in 0..5 {
+            let choices = PlayerChoices {
+                action_ids: vec!["act_rest".to_string()],
+                decision_id: String::new(),
+                decision_option_index: 0,
+                event_option_index: Some(0),
+            };
+            run_turn(&mut state, &choices, &data, &mut rng);
+        }
+        assert_eq!(state.job_turns, 0, "job_turns should stay 0 for zero growth_rate");
+    }
+
+    #[test]
+    fn test_job_growth_resets_on_switch() {
+        let data = load_test_data();
+        let mut state = GameState::new("SWITCH_TEST".to_string());
+        let mut rng = create_rng("SWITCH_TEST");
+
+        // Start with helpdesk, accumulate some turns
+        let helpdesk = data.jobs.iter().find(|j| j.id == "job_helpdesk").unwrap();
+        state.current_job = Some(helpdesk.clone());
+        state.current_stage = Stage::EarlyAdult;
+        state.current_turn = 14;
+        state.credentials.push("IT Fundamentals".to_string());
+
+        // Run 2 turns to accumulate job_turns
+        for _ in 0..2 {
+            let choices = PlayerChoices {
+                action_ids: vec!["act_rest".to_string()],
+                decision_id: String::new(),
+                decision_option_index: 0,
+                event_option_index: Some(0),
+            };
+            run_turn(&mut state, &choices, &data, &mut rng);
+        }
+        assert_eq!(state.job_turns, 2, "Should have 2 job turns");
+
+        // Now switch via decision — use the first_job decision
+        let choices = PlayerChoices {
+            action_ids: vec!["act_rest".to_string()],
+            decision_id: "dec_first_job_d".to_string(),
+            decision_option_index: 0, // Fast Food
+            event_option_index: Some(0),
+        };
+        run_turn(&mut state, &choices, &data, &mut rng);
+        assert_eq!(state.job_turns, 0, "job_turns should reset after job switch");
+        assert_eq!(state.current_job.as_ref().unwrap().id, "job_fast_food");
     }
 }

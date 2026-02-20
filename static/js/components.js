@@ -74,12 +74,18 @@ const Components = {
             }
         }
 
-        // Job display
+        // Job display with growth progress
         const jobRow = document.getElementById('stat-job-row');
         if (jobRow) {
             if (state.currentJob) {
                 jobRow.style.display = '';
-                document.getElementById('stat-job').textContent = state.currentJob.title;
+                let jobText = state.currentJob.title;
+                // Growth progress indicator
+                if (state.currentJob.growthRate > 0 && state.currentJob.growthTag) {
+                    jobText += ` (${state.jobTurns || 0}/${state.currentJob.growthRate} 🌱)`;
+                }
+                document.getElementById('stat-job').innerHTML =
+                    `<span class="job-link" onclick="Game.showJobBoard()">${jobText}</span>`;
             } else {
                 jobRow.style.display = 'none';
             }
@@ -271,5 +277,71 @@ const Components = {
             toast.classList.remove('show');
             setTimeout(() => toast.remove(), 300);
         }, 3000);
+    },
+
+    // ─── Job Board Modal ────────────────────────────────
+    jobBoardModal(jobsData) {
+        const { jobs, currentJob } = jobsData;
+
+        const currentInfo = currentJob
+            ? `<div class="jb-current">
+                <span>Current: <strong>${currentJob.jobTitle}</strong></span>
+                ${currentJob.growthRate > 0
+                ? `<span class="jb-growth">🌱 ${currentJob.jobTurns}/${currentJob.growthRate} → ${currentJob.growthTag || '?'}</span>`
+                : ''}
+               </div>`
+            : '<div class="jb-current"><em>No job held</em></div>';
+
+        const cards = jobs.map(j => {
+            const classes = ['jb-card'];
+            if (j.isCurrent) classes.push('jb-current-card');
+            if (!j.eligible) classes.push('jb-locked');
+
+            const reqTags = (j.requiredTags || []).map(t => {
+                const has = !j.missingRequired.includes(t);
+                return `<span class="jb-tag ${has ? 'jb-tag-ok' : 'jb-tag-missing'}">${has ? '✅' : '🔒'} ${t}</span>`;
+            }).join('');
+
+            const recTags = (j.recommendedTags || []).map(t => {
+                const has = !j.missingRecommended.includes(t);
+                return `<span class="jb-tag ${has ? 'jb-tag-ok' : 'jb-tag-warn'}">${has ? '✅' : '⚠️'} ${t}</span>`;
+            }).join('');
+
+            const growthInfo = j.growthRate > 0 && j.growthTag
+                ? `<div class="jb-growth-info">🌱 Growth: <strong>${j.growthTag}</strong> after ${j.growthRate} turns</div>`
+                : '';
+
+            return `
+                <div class="${classes.join(' ')}">
+                    <div class="jb-card-header">
+                        <h4>${j.title}${j.isCurrent ? ' ⭐' : ''}</h4>
+                        <span class="jb-badge ${j.eligible ? 'jb-eligible' : 'jb-ineligible'}">
+                            ${j.eligible ? 'Eligible' : 'Locked'}
+                        </span>
+                    </div>
+                    <p class="jb-desc">${j.description}</p>
+                    <div class="jb-stats">
+                        <span class="jb-pay">💰 $${j.payPerTurn}/turn</span>
+                        <span class="jb-stress">😰 +${j.stressPerTurn}</span>
+                    </div>
+                    ${reqTags ? `<div class="jb-tags"><small>Required:</small> ${reqTags}</div>` : ''}
+                    ${recTags ? `<div class="jb-tags"><small>Recommended:</small> ${recTags}</div>` : ''}
+                    ${growthInfo}
+                </div>
+            `;
+        }).join('');
+
+        return `
+            <div class="jb-overlay" onclick="Game.closeJobBoard()">
+                <div class="jb-modal" onclick="event.stopPropagation()">
+                    <div class="jb-modal-header">
+                        <h3>📋 Job Board</h3>
+                        <button class="jb-close" onclick="Game.closeJobBoard()">✕</button>
+                    </div>
+                    ${currentInfo}
+                    <div class="jb-grid">${cards}</div>
+                </div>
+            </div>
+        `;
     },
 };

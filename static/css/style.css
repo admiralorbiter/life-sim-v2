@@ -1277,3 +1277,202 @@ body {
     background: var(--accent-dim);
     border-color: var(--accent);
 }
+
+/* ─── Job Board Modal ────────────────────────────────── */
+.jb-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.jb-modal {
+    background: var(--bg-game);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    max-width: 720px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.jb-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.jb-modal-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.jb-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.jb-close:hover {
+    color: var(--text-primary);
+}
+
+.jb-current {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.jb-growth {
+    color: var(--accent);
+    font-size: 0.82rem;
+}
+
+.jb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+}
+
+.jb-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.jb-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.jb-current-card {
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.2);
+}
+
+.jb-locked {
+    opacity: 0.6;
+}
+
+.jb-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.35rem;
+}
+
+.jb-card-header h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.jb-badge {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.jb-eligible {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.jb-ineligible {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.jb-desc {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin: 0.25rem 0 0.4rem;
+    line-height: 1.4;
+}
+
+.jb-stats {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    margin-bottom: 0.35rem;
+}
+
+.jb-pay {
+    color: #22c55e;
+}
+
+.jb-stress {
+    color: #f59e0b;
+}
+
+.jb-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+.jb-tags small {
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    margin-right: 0.2rem;
+}
+
+.jb-tag {
+    font-size: 0.72rem;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--bg-game);
+}
+
+.jb-tag-ok {
+    color: #22c55e;
+}
+
+.jb-tag-missing {
+    color: #ef4444;
+}
+
+.jb-tag-warn {
+    color: #f59e0b;
+}
+
+.jb-growth-info {
+    font-size: 0.78rem;
+    color: var(--accent);
+    margin-top: 0.3rem;
+    padding-top: 0.3rem;
+    border-top: 1px dashed var(--border);
+}
+
+/* Clickable job link in stats bar */
+.job-link {
+    cursor: pointer;
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+}
+
+.job-link:hover {
+    color: var(--text-primary);
+}

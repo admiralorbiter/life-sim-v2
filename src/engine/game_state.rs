@@ -28,6 +28,7 @@ pub struct GameState {
 
     // Tracking
     pub current_job: Option<Job>,
+    pub job_turns: u32,
     pub monthly_bills: i32,
     pub emergency_fund: i32,
     pub decision_log: Vec<DecisionEntry>,
@@ -52,6 +53,7 @@ impl GameState {
             credentials: Vec::new(),
 
             current_job: None,
+            job_turns: 0,
             monthly_bills: 0,
             emergency_fund: 0,
             decision_log: Vec::new(),

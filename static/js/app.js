@@ -475,6 +475,25 @@ const Game = {
 
         logEl.scrollTop = logEl.scrollHeight;
     },
+
+    // ─── Job Board ──────────────────────────────────────
+    async showJobBoard() {
+        const data = await API.getJobs();
+        if (data.error) {
+            Components.showToast(data.error, 'warning');
+            return;
+        }
+        const modal = Components.jobBoardModal(data);
+        const container = document.createElement('div');
+        container.id = 'job-board-container';
+        container.innerHTML = modal;
+        document.body.appendChild(container);
+    },
+
+    closeJobBoard() {
+        const container = document.getElementById('job-board-container');
+        if (container) container.remove();
+    },
 };
 
 // Boot

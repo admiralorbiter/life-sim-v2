@@ -249,6 +249,64 @@ pub async fn get_ending(
     }
 }
 
+/// GET /api/jobs — List available jobs for the current stage with eligibility.
+pub async fn get_jobs(
+    app_state: web::Data<AppState>,
+    game_data: web::Data<GameData>,
+) -> impl Responder {
+    let game = app_state.game.lock().unwrap();
+    match &*game {
+        Some(state) => {
+            let current_job_id = state.current_job.as_ref().map(|j| j.id.clone());
+            let jobs: Vec<serde_json::Value> = game_data.jobs.iter()
+                .filter(|j| j.stages.contains(&state.current_stage))
+                .map(|j| {
+                    let missing_required: Vec<&String> = j.required_tags.iter()
+                        .filter(|t| !state.credentials.contains(t))
+                        .collect();
+                    let missing_recommended: Vec<&String> = j.recommended_tags.iter()
+                        .filter(|t| !state.credentials.contains(t))
+                        .collect();
+                    let is_current = current_job_id.as_ref() == Some(&j.id);
+
+                    serde_json::json!({
+                        "id": j.id,
+                        "title": j.title,
+                        "description": j.description,
+                        "payPerTurn": j.pay_per_turn,
+                        "stressPerTurn": j.stress_per_turn,
+                        "requiredTags": j.required_tags,
+                        "recommendedTags": j.recommended_tags,
+                        "growthRate": j.growth_rate,
+                        "growthTag": j.growth_tag,
+                        "eligible": missing_required.is_empty(),
+                        "isCurrent": is_current,
+                        "missingRequired": missing_required,
+                        "missingRecommended": missing_recommended,
+                    })
+                })
+                .collect();
+
+            let growth_info = state.current_job.as_ref().map(|j| {
+                serde_json::json!({
+                    "jobTitle": j.title,
+                    "jobTurns": state.job_turns,
+                    "growthRate": j.growth_rate,
+                    "growthTag": j.growth_tag,
+                })
+            });
+
+            HttpResponse::Ok().json(serde_json::json!({
+                "jobs": jobs,
+                "currentJob": growth_info,
+            }))
+        }
+        None => HttpResponse::BadRequest().json(serde_json::json!({
+            "error": "No game in progress."
+        })),
+    }
+}
+
 // ═══════════════════════════════════════════════════════════════
 // Debug / Dev Endpoints
 // ═══════════════════════════════════════════════════════════════
@@ -356,6 +414,7 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
             .route("/draw_event", web::get().to(draw_event))
             .route("/submit_turn", web::post().to(submit_turn))
             .route("/endings", web::get().to(get_ending))
+            .route("/jobs", web::get().to(get_jobs))
             // Debug endpoints
             .route("/debug/skip_stage", web::post().to(debug_skip_stage))
             .route("/debug/set_stats", web::post().to(debug_set_stats))

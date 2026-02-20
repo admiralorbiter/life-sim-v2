@@ -123,21 +123,23 @@ A collapsible debug panel (`🛠️ Dev Tools`) is available at the bottom of th
 **Goal:** Tags, jobs, and the alignment mechanic are functional.
 
 ### Tasks
-- [ ] Implement `credential_system.rs` — add/remove tags, match against job requirements
-- [ ] Author `data/jobs.json` — 8–10 jobs across stages with tag requirements
-- [ ] Add job selection API endpoint and UI (available in Stages B–D commit phase)
-- [ ] Implement job income per turn
-- [ ] Implement misalignment penalty (lower pay, +stress if missing recommended tags)
-- [ ] Implement growth mechanic (earn a tag after N turns in a growth job)
-- [ ] Display credential tags in stats bar with visual indicators
-- [ ] Add "job board" view showing available jobs + requirements
-- [ ] Write tests for credential matching and misalignment math
+- [x] Credential system — add/remove tags, match against job requirements (built into `stat_calculator.rs` and `turn_runner.rs`)
+- [x] `data/jobs.json` — 7 jobs across stages with required/recommended tags
+- [x] Job selection via decisions (`sets_job` field on decision options)
+- [x] Job income per turn (`apply_job_income` in `stat_calculator.rs`)
+- [x] Misalignment penalty (−25% pay, +3 stress when missing recommended tags)
+- [x] Growth mechanic (earn `growthTag` after `growthRate` turns in a job)
+- [x] `job_turns` tracking with reset on job switch
+- [x] Display credential tags in stats bar with visual indicators
+- [x] Job board view (`GET /api/jobs` + modal UI with eligibility annotations)
+- [x] Growth progress indicator in stats bar
+- [x] Tests: misalignment penalty, aligned no-penalty, growth grants tag, no growth on zero rate, growth resets on switch
 
 ### Definition of Done
-- Player can earn tags through actions and jobs
-- Jobs filter by required tags; misaligned jobs show penalties
-- Job income flows into money each turn
-- Growth jobs award tags after threshold
+- [x] Player can earn tags through actions and jobs
+- [x] Jobs filter by required tags; misaligned jobs show penalties
+- [x] Job income flows into money each turn
+- [x] Growth jobs award tags after threshold
 
 ---
 

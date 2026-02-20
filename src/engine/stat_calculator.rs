@@ -81,16 +81,43 @@ pub fn apply_effects(state: &mut GameState, effects: &[StatEffect]) -> Vec<Strin
     feedback
 }
 
+/// Misalignment stress penalty (missing recommended tags).
+const MISALIGN_STRESS: i32 = 3;
+/// Misalignment pay multiplier (75% of normal pay).
+const MISALIGN_PAY_MULT: f64 = 0.75;
+
 /// Apply job income to the game state (Phase 4).
+/// If the player is missing recommendedTags, they get reduced pay and extra stress.
 pub fn apply_job_income(state: &mut GameState) -> Vec<String> {
     let mut feedback = Vec::new();
     if let Some(ref job) = state.current_job {
-        state.money += job.pay_per_turn;
-        state.stress += job.stress_per_turn;
+        // Check misalignment: missing any recommended tags?
+        let missing_recommended: Vec<&String> = job.recommended_tags.iter()
+            .filter(|tag| !state.credentials.contains(tag))
+            .collect();
+        let misaligned = !missing_recommended.is_empty();
+
+        // Calculate pay (reduced if misaligned)
+        let pay = if misaligned {
+            (job.pay_per_turn as f64 * MISALIGN_PAY_MULT) as i32
+        } else {
+            job.pay_per_turn
+        };
+
+        // Calculate stress (extra if misaligned)
+        let stress = job.stress_per_turn + if misaligned { MISALIGN_STRESS } else { 0 };
+
+        state.money += pay;
+        state.stress += stress;
         state.stress = state.stress.clamp(STRESS_MIN, STRESS_MAX);
-        feedback.push(format!("💼 {} pay: +${}", job.title, job.pay_per_turn));
-        if job.stress_per_turn > 0 {
-            feedback.push(format!("😰 Work stress: +{}", job.stress_per_turn));
+
+        feedback.push(format!("💼 {} pay: +${}", job.title, pay));
+        if stress > 0 {
+            feedback.push(format!("😰 Work stress: +{}", stress));
+        }
+        if misaligned {
+            let tags: Vec<&str> = missing_recommended.iter().map(|s| s.as_str()).collect();
+            feedback.push(format!("⚠️ Misaligned — missing: {}", tags.join(", ")));
         }
     }
     feedback
@@ -336,5 +363,51 @@ mod tests {
         let fb = apply_monthly_bills(&mut state);
         assert!(state.money < 0 || state.money == 0);
         assert!(fb.iter().any(|f| f.contains("debt")));
+    }
+
+    #[test]
+    fn test_misalignment_penalty() {
+        let mut state = make_state();
+        state.current_job = Some(crate::models::Job {
+            id: "test".to_string(),
+            title: "Test Job".to_string(),
+            required_tags: vec![],
+            recommended_tags: vec!["Customer Service".to_string()],
+            pay_per_turn: 40,
+            stress_per_turn: 4,
+            growth_rate: 0,
+            growth_tag: None,
+            stages: vec![],
+            description: "Test".to_string(),
+        });
+        // Player does NOT have "Customer Service" → misaligned
+        let fb = apply_job_income(&mut state);
+        // Pay should be 75% of 40 = 30
+        assert_eq!(state.money, 130); // 100 + 30
+        // Stress should be 4 + 3 = 7
+        assert_eq!(state.stress, 27); // 20 + 7
+        assert!(fb.iter().any(|f| f.contains("Misaligned")));
+    }
+
+    #[test]
+    fn test_aligned_job_no_penalty() {
+        let mut state = make_state();
+        state.credentials.push("Customer Service".to_string());
+        state.current_job = Some(crate::models::Job {
+            id: "test".to_string(),
+            title: "Test Job".to_string(),
+            required_tags: vec![],
+            recommended_tags: vec!["Customer Service".to_string()],
+            pay_per_turn: 40,
+            stress_per_turn: 4,
+            growth_rate: 0,
+            growth_tag: None,
+            stages: vec![],
+            description: "Test".to_string(),
+        });
+        let fb = apply_job_income(&mut state);
+        assert_eq!(state.money, 140); // 100 + 40 (full pay)
+        assert_eq!(state.stress, 24); // 20 + 4 (no extra)
+        assert!(!fb.iter().any(|f| f.contains("Misaligned")));
     }
 }
