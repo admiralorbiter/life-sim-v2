@@ -194,6 +194,8 @@ pub async fn submit_turn(
             "feedback": result.feedback,
             "eventDrawn": result.event_drawn,
             "stageTransitioned": result.stage_transitioned,
+            "newStage": result.new_stage,
+            "oldStage": result.old_stage,
             "stressWarning": result.stress_warning,
         },
         "isGameOver": turn_runner::is_game_over(state),
@@ -247,6 +249,102 @@ pub async fn get_ending(
     }
 }
 
+// ═══════════════════════════════════════════════════════════════
+// Debug / Dev Endpoints
+// ═══════════════════════════════════════════════════════════════
+
+/// POST /api/debug/skip_stage — Jump to the start of the next stage.
+pub async fn debug_skip_stage(app_state: web::Data<AppState>) -> impl Responder {
+    let mut game = app_state.game.lock().unwrap();
+    match &mut *game {
+        Some(state) => {
+            let old_stage = state.current_stage.clone();
+            let end = turn_runner::stage_end_turn(&state.current_stage);
+            state.current_turn = end + 1; // Move past the boundary
+
+            // Trigger the transition
+            if let Some(ns) = turn_runner::next_stage(&state.current_stage) {
+                state.current_stage = ns;
+                state.time_slots = 3;
+            }
+
+            HttpResponse::Ok().json(serde_json::json!({
+                "state": &*state,
+                "message": format!("Skipped from {:?} to {:?}", old_stage, state.current_stage),
+            }))
+        }
+        None => HttpResponse::BadRequest().json(serde_json::json!({
+            "error": "No game in progress."
+        })),
+    }
+}
+
+/// POST /api/debug/set_stats — Freely set any stat values.
+pub async fn debug_set_stats(
+    app_state: web::Data<AppState>,
+    body: web::Json<serde_json::Value>,
+) -> impl Responder {
+    let mut game = app_state.game.lock().unwrap();
+    match &mut *game {
+        Some(state) => {
+            if let Some(v) = body.get("money").and_then(|v| v.as_i64()) {
+                state.money = v as i32;
+            }
+            if let Some(v) = body.get("stress").and_then(|v| v.as_i64()) {
+                state.stress = v as i32;
+            }
+            if let Some(v) = body.get("support").and_then(|v| v.as_i64()) {
+                state.support = v as i32;
+            }
+            if let Some(v) = body.get("monthlyBills").and_then(|v| v.as_i64()) {
+                state.monthly_bills = v as i32;
+            }
+            if let Some(v) = body.get("emergencyFund").and_then(|v| v.as_i64()) {
+                state.emergency_fund = v as i32;
+            }
+            if let Some(v) = body.get("turn").and_then(|v| v.as_u64()) {
+                state.current_turn = v as u32;
+            }
+
+            HttpResponse::Ok().json(serde_json::json!({
+                "state": &*state,
+                "message": "Stats updated",
+            }))
+        }
+        None => HttpResponse::BadRequest().json(serde_json::json!({
+            "error": "No game in progress."
+        })),
+    }
+}
+
+/// POST /api/debug/grant_tag — Grant a credential tag to the player.
+pub async fn debug_grant_tag(
+    app_state: web::Data<AppState>,
+    body: web::Json<serde_json::Value>,
+) -> impl Responder {
+    let mut game = app_state.game.lock().unwrap();
+    match &mut *game {
+        Some(state) => {
+            if let Some(tag) = body.get("tag").and_then(|v| v.as_str()) {
+                if !state.credentials.contains(&tag.to_string()) {
+                    state.credentials.push(tag.to_string());
+                }
+                HttpResponse::Ok().json(serde_json::json!({
+                    "state": &*state,
+                    "message": format!("Granted credential: {}", tag),
+                }))
+            } else {
+                HttpResponse::BadRequest().json(serde_json::json!({
+                    "error": "Missing 'tag' field."
+                }))
+            }
+        }
+        None => HttpResponse::BadRequest().json(serde_json::json!({
+            "error": "No game in progress."
+        })),
+    }
+}
+
 /// Configure all API routes.
 pub fn configure(cfg: &mut web::ServiceConfig) {
     cfg.service(
@@ -258,5 +356,9 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
             .route("/draw_event", web::get().to(draw_event))
             .route("/submit_turn", web::post().to(submit_turn))
             .route("/endings", web::get().to(get_ending))
+            // Debug endpoints
+            .route("/debug/skip_stage", web::post().to(debug_skip_stage))
+            .route("/debug/set_stats", web::post().to(debug_set_stats))
+            .route("/debug/grant_tag", web::post().to(debug_grant_tag))
     );
 }

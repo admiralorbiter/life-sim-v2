@@ -3,38 +3,18 @@
         "id": "act_study",
         "label": "Study",
         "description": "Hit the books. Reduces stress slightly, builds toward credentials.",
-        "stages": [
-            "middle-school",
-            "high-school",
-            "post-high",
-            "early-adult"
-        ],
-        "effects": [
-            {
-                "stat": "stress",
-                "delta": -3
-            }
-        ],
+        "stages": ["middle-school", "high-school", "post-high", "early-adult"],
+        "effects": [{ "stat": "stress", "delta": -3 }],
         "timeCost": 1
     },
     {
         "id": "act_friends",
         "label": "Friends",
         "description": "Hang out with friends. Good for your support network.",
-        "stages": [
-            "middle-school",
-            "high-school",
-            "early-adult"
-        ],
+        "stages": ["middle-school", "high-school", "early-adult"],
         "effects": [
-            {
-                "stat": "support",
-                "delta": 1
-            },
-            {
-                "stat": "stress",
-                "delta": -2
-            }
+            { "stat": "support", "delta": 1 },
+            { "stat": "stress", "delta": -2 }
         ],
         "timeCost": 1
     },
@@ -42,55 +22,26 @@
         "id": "act_family",
         "label": "Family",
         "description": "Spend time with family. Strengthens your support system.",
-        "stages": [
-            "middle-school",
-            "high-school",
-            "post-high",
-            "early-adult"
-        ],
-        "effects": [
-            {
-                "stat": "support",
-                "delta": 1
-            }
-        ],
+        "stages": ["middle-school", "high-school", "post-high", "early-adult"],
+        "effects": [{ "stat": "support", "delta": 1 }],
         "timeCost": 1
     },
     {
         "id": "act_rest",
         "label": "Rest",
         "description": "Take a break. You need it.",
-        "stages": [
-            "middle-school",
-            "high-school",
-            "post-high",
-            "early-adult"
-        ],
-        "effects": [
-            {
-                "stat": "stress",
-                "delta": -5
-            }
-        ],
+        "stages": ["middle-school", "high-school", "post-high", "early-adult"],
+        "effects": [{ "stat": "stress", "delta": -5 }],
         "timeCost": 1
     },
     {
         "id": "act_clubs",
         "label": "Clubs",
         "description": "Participate in extracurriculars. Builds skills and connections.",
-        "stages": [
-            "middle-school",
-            "high-school"
-        ],
+        "stages": ["middle-school", "high-school"],
         "effects": [
-            {
-                "stat": "stress",
-                "delta": 2
-            },
-            {
-                "stat": "support",
-                "delta": 1
-            }
+            { "stat": "stress", "delta": 2 },
+            { "stat": "support", "delta": 1 }
         ],
         "timeCost": 1
     },
@@ -98,20 +49,10 @@
         "id": "act_work",
         "label": "Work",
         "description": "Put in hours at your job. Earn money but add stress.",
-        "stages": [
-            "high-school",
-            "post-high",
-            "early-adult"
-        ],
+        "stages": ["high-school", "post-high", "early-adult"],
         "effects": [
-            {
-                "stat": "money",
-                "delta": 40
-            },
-            {
-                "stat": "stress",
-                "delta": 5
-            }
+            { "stat": "money", "delta": 40 },
+            { "stat": "stress", "delta": 5 }
         ],
         "timeCost": 1
     },
@@ -119,17 +60,85 @@
         "id": "act_skill_building",
         "label": "Skill-building",
         "description": "Work on a specific skill or certification. Takes time but builds credentials.",
-        "stages": [
-            "high-school",
-            "post-high",
-            "early-adult"
-        ],
+        "stages": ["high-school", "post-high", "early-adult"],
+        "effects": [{ "stat": "stress", "delta": 3 }],
+        "timeCost": 1
+    },
+    {
+        "id": "act_part_time",
+        "label": "Part-time Job",
+        "description": "Pick up shifts after school. Less money than full work, but manageable.",
+        "stages": ["high-school"],
         "effects": [
-            {
-                "stat": "stress",
-                "delta": 3
-            }
+            { "stat": "money", "delta": 25 },
+            { "stat": "stress", "delta": 3 }
         ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_volunteer",
+        "label": "Volunteer",
+        "description": "Help out in the community. Builds connections and looks great on applications.",
+        "stages": ["high-school", "post-high"],
+        "effects": [
+            { "stat": "support", "delta": 2 },
+            { "stat": "stress", "delta": 1 }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_training",
+        "label": "Training Program",
+        "description": "Enroll in a certification program. Intensive but opens doors.",
+        "stages": ["post-high", "early-adult"],
+        "effects": [
+            { "stat": "stress", "delta": 5 },
+            { "stat": "money", "delta": -30 }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_networking",
+        "label": "Networking",
+        "description": "Attend meetups and build professional connections.",
+        "stages": ["post-high", "early-adult"],
+        "effects": [
+            { "stat": "support", "delta": 1 },
+            { "stat": "stress", "delta": 2 }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_save",
+        "label": "Save Money",
+        "description": "Put money aside for emergencies. Less to spend now, more safety later.",
+        "stages": ["early-adult"],
+        "effects": [
+            { "stat": "money", "delta": -20 }
+        ],
+        "specialEffect": "emergency_fund_deposit",
+        "timeCost": 1
+    },
+    {
+        "id": "act_side_hustle",
+        "label": "Side Hustle",
+        "description": "Pick up gig work — deliveries, freelancing, odd jobs. Extra cash, extra stress.",
+        "stages": ["early-adult"],
+        "effects": [
+            { "stat": "money", "delta": 30 },
+            { "stat": "stress", "delta": 4 }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_budget",
+        "label": "Budget Planning",
+        "description": "Sit down and plan your finances. Reduces next month's bills slightly.",
+        "stages": ["early-adult"],
+        "effects": [
+            { "stat": "stress", "delta": 2 }
+        ],
+        "specialEffect": "reduce_bills",
         "timeCost": 1
     }
 ]

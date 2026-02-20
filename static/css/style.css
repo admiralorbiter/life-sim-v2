@@ -573,7 +573,8 @@ body {
     background: var(--warning-dim);
 }
 
-.stage-transition {
+/* ─── Stage Transition Banner (in feedback) ─────────── */
+.stage-transition-banner {
     text-align: center;
     font-size: 1.1rem;
     font-weight: 700;
@@ -583,6 +584,160 @@ body {
     background: var(--accent-dim);
     border-radius: var(--radius);
     animation: pulse 2s ease-in-out infinite;
+}
+
+/* ─── Full Stage Transition Overlay ──────────────────── */
+.transition-overlay {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.transition-content {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.transition-completed {
+    opacity: 0.6;
+    margin-bottom: 1rem;
+}
+
+.transition-check {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+}
+
+.transition-completed h3 {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.transition-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--stage-color, var(--accent)), transparent);
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+.transition-upcoming {
+    margin-bottom: 1.5rem;
+}
+
+.transition-emoji {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.transition-upcoming h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--stage-color, var(--accent));
+    margin-bottom: 0.5rem;
+}
+
+.transition-hint {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.transition-stats {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.transition-stat {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.transition-btn {
+    min-width: 200px;
+}
+
+/* ─── Credential-gated Decision Cards ────────────────── */
+.decision-card.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: rgba(248, 113, 113, 0.3);
+    position: relative;
+}
+
+.decision-card.locked:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: rgba(248, 113, 113, 0.3);
+}
+
+.lock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--danger);
+}
+
+.requires-tag {
+    margin-top: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.requires-tag.locked {
+    color: var(--danger);
+}
+
+.requires-tag.unlocked {
+    color: var(--success);
+}
+
+/* ─── Special Effect & Sets Labels ───────────────────── */
+.special-tag {
+    margin-top: 0.35rem;
+    color: var(--purple);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.sets-job {
+    margin-top: 0.3rem;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.sets-bills {
+    margin-top: 0.3rem;
+    color: var(--warning);
+    font-size: 0.82rem;
+    font-weight: 600;
 }
 
 .turn-warning {
@@ -1013,4 +1168,112 @@ body {
         width: 130px;
         height: 180px;
     }
+}
+
+/* ─── Debug Panel ────────────────────────────────────── */
+.debug-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    font-size: 0.82rem;
+}
+
+.debug-toggle {
+    display: block;
+    width: 100%;
+    background: rgba(30, 41, 59, 0.95);
+    border: none;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 0.4rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.debug-toggle:hover {
+    color: var(--text-primary);
+    background: rgba(30, 41, 59, 1);
+}
+
+.debug-body {
+    background: rgba(15, 23, 42, 0.97);
+    border-top: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.debug-section {
+    flex: 1;
+    min-width: 180px;
+}
+
+.debug-section h4 {
+    color: var(--accent);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+}
+
+.debug-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.debug-stats-grid label {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.78rem;
+}
+
+.debug-stats-grid input {
+    width: 60px;
+    padding: 3px 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.78rem;
+}
+
+.debug-tag-row {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.debug-tag-row select {
+    flex: 1;
+    padding: 4px 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.78rem;
+}
+
+.btn-debug {
+    background: var(--bg-card);
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.6rem;
+    font-size: 0.78rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.2rem;
+}
+
+.btn-debug:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent);
 }

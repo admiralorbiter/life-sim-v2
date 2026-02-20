@@ -43,4 +43,28 @@ const API = {
         const res = await fetch('/api/health');
         return res.json();
     },
+
+    // ─── Debug Endpoints ────────────────────────────────
+    async debugSkipStage() {
+        const res = await fetch('/api/debug/skip_stage', { method: 'POST' });
+        return res.json();
+    },
+
+    async debugSetStats(stats) {
+        const res = await fetch('/api/debug/set_stats', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(stats),
+        });
+        return res.json();
+    },
+
+    async debugGrantTag(tag) {
+        const res = await fetch('/api/debug/grant_tag', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tag }),
+        });
+        return res.json();
+    },
 };

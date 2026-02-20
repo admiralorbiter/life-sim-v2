@@ -27,11 +27,16 @@ pub struct TurnResult {
     pub feedback: Vec<String>,
     /// Whether a stage transition occurred.
     pub stage_transitioned: bool,
+    /// The new stage (if transitioned).
+    pub new_stage: Option<Stage>,
+    /// The previous stage (if transitioned).
+    pub old_stage: Option<Stage>,
     /// Stress threshold warning (if applicable).
     pub stress_warning: Option<String>,
 }
 
 /// Run one complete turn through all 4 phases.
+#[allow(dead_code)]
 pub fn run_turn(
     state: &mut GameState,
     choices: &PlayerChoices,
@@ -57,6 +62,25 @@ pub fn run_turn_with_event(
         if let Some(action) = data.actions.iter().find(|a| a.id == *action_id) {
             let msgs = stat_calculator::apply_effects(state, &action.effects);
             feedback.extend(msgs);
+
+            // Handle special action effects
+            if let Some(ref special) = action.special_effect {
+                match special.as_str() {
+                    "emergency_fund_deposit" => {
+                        // The -$20 money effect is already in the action's effects
+                        state.emergency_fund += 20;
+                        feedback.push(format!("🏦 Emergency fund: +$20 (total: ${})", state.emergency_fund));
+                    }
+                    "reduce_bills" => {
+                        if state.monthly_bills > 0 {
+                            let reduction = 10.min(state.monthly_bills);
+                            state.monthly_bills -= reduction;
+                            feedback.push(format!("📉 Bills reduced by ${} (now ${})", reduction, state.monthly_bills));
+                        }
+                    }
+                    _ => {}
+                }
+            }
         }
     }
 
@@ -73,6 +97,34 @@ pub fn run_turn_with_event(
                     feedback.push(format!("📚 Earned: {}", tag));
                 }
             }
+
+            // Set monthly bills if specified (housing decision)
+            if let Some(bills) = option.sets_bills {
+                state.monthly_bills = bills;
+                if bills > 0 {
+                    feedback.push(format!("🏠 Monthly bills set to ${}", bills));
+                } else {
+                    feedback.push("🏠 Living rent-free with family".to_string());
+                }
+            }
+
+            // Set job if specified (job selection decision)
+            if let Some(ref job_id) = option.sets_job {
+                if let Some(job) = data.jobs.iter().find(|j| j.id == *job_id) {
+                    feedback.push(format!("💼 Started working as: {}", job.title));
+                    state.current_job = Some(job.clone());
+                }
+            }
+
+            // Log the decision
+            state.decision_log.push(crate::engine::game_state::DecisionEntry {
+                turn: state.current_turn,
+                stage: state.current_stage.clone(),
+                description: format!("{}: {}", decision.prompt, option.label),
+                impact: option.effects.iter()
+                    .map(|e| format!("{:?} {:+}", e.stat, e.delta))
+                    .collect::<Vec<_>>().join(", "),
+            });
         }
     }
 
@@ -107,6 +159,10 @@ pub fn run_turn_with_event(
     if state.current_stage == Stage::EarlyAdult {
         let bill_msgs = stat_calculator::apply_monthly_bills(state);
         feedback.extend(bill_msgs);
+
+        // Emergency fund auto-cover: if money went negative and we have a fund
+        let efund_msgs = stat_calculator::apply_emergency_fund(state);
+        feedback.extend(efund_msgs);
     }
 
     // Check stress threshold
@@ -119,21 +175,27 @@ pub fn run_turn_with_event(
     state.current_turn += 1;
 
     // Check for stage transition
+    let old_stage = state.current_stage.clone();
     let stage_transitioned = check_and_transition_stage(state);
-    if stage_transitioned {
+    let (new_stage, transition_old_stage) = if stage_transitioned {
         feedback.push(format!("🎓 Advancing to {}!", state.current_stage));
-    }
+        (Some(state.current_stage.clone()), Some(old_stage))
+    } else {
+        (None, None)
+    };
 
     TurnResult {
         event_drawn,
         feedback,
         stage_transitioned,
+        new_stage,
+        old_stage: transition_old_stage,
         stress_warning,
     }
 }
 
 /// Stage turn boundaries (inclusive end turn for each stage).
-fn stage_end_turn(stage: &Stage) -> u32 {
+pub fn stage_end_turn(stage: &Stage) -> u32 {
     match stage {
         Stage::MiddleSchool => 4,   // Turns 1-4
         Stage::HighSchool => 10,    // Turns 5-10
@@ -158,7 +220,7 @@ fn check_and_transition_stage(state: &mut GameState) -> bool {
 }
 
 /// Get the next stage in sequence, or None if at the final stage.
-fn next_stage(stage: &Stage) -> Option<Stage> {
+pub fn next_stage(stage: &Stage) -> Option<Stage> {
     match stage {
         Stage::MiddleSchool => Some(Stage::HighSchool),
         Stage::HighSchool => Some(Stage::PostHigh),
@@ -188,9 +250,6 @@ mod tests {
         let data = load_test_data();
         let mut state = GameState::new("TURN_TEST".to_string());
         let mut rng = create_rng("TURN_TEST");
-
-        let initial_money = state.money;
-        let initial_stress = state.stress;
 
         let choices = PlayerChoices {
             action_ids: vec!["act_study".to_string(), "act_rest".to_string()],
@@ -289,5 +348,65 @@ mod tests {
             result.stress_warning.is_some(),
             "Should have stress warning at > 75"
         );
+    }
+
+    #[test]
+    fn test_decision_sets_job() {
+        let data = load_test_data();
+        let mut state = GameState::new("JOB_TEST".to_string());
+        let mut rng = create_rng("JOB_TEST");
+
+        // Jump to early adult stage
+        state.current_stage = Stage::EarlyAdult;
+        state.current_turn = 14;
+
+        let choices = PlayerChoices {
+            action_ids: vec!["act_rest".to_string()],
+            decision_id: "dec_first_job_d".to_string(),
+            decision_option_index: 0, // Fast Food Crew
+            event_option_index: Some(0),
+        };
+
+        let result = run_turn(&mut state, &choices, &data, &mut rng);
+
+        assert!(state.current_job.is_some(), "Should have a job assigned");
+        assert_eq!(state.current_job.as_ref().unwrap().id, "job_fast_food");
+        assert!(result.feedback.iter().any(|f| f.contains("Fast Food")));
+    }
+
+    #[test]
+    fn test_decision_sets_bills() {
+        let data = load_test_data();
+        let mut state = GameState::new("BILLS_TEST".to_string());
+        let mut rng = create_rng("BILLS_TEST");
+
+        // Jump to post-high stage
+        state.current_stage = Stage::PostHigh;
+        state.current_turn = 12;
+
+        let choices = PlayerChoices {
+            action_ids: vec!["act_rest".to_string()],
+            decision_id: "dec_housing_c".to_string(),
+            decision_option_index: 1, // Get roommates ($40/turn)
+            event_option_index: Some(0),
+        };
+
+        run_turn(&mut state, &choices, &data, &mut rng);
+
+        assert_eq!(state.monthly_bills, 40, "Monthly bills should be set to $40");
+    }
+
+    #[test]
+    fn test_emergency_fund() {
+        let mut state = GameState::new("EFUND_TEST".to_string());
+        state.current_stage = Stage::EarlyAdult;
+        state.money = -20;
+        state.emergency_fund = 50;
+
+        let msgs = stat_calculator::apply_emergency_fund(&mut state);
+
+        assert!(state.money >= 0, "Emergency fund should cover debt");
+        assert_eq!(state.emergency_fund, 30, "Fund should be reduced by $20");
+        assert!(!msgs.is_empty(), "Should produce feedback");
     }
 }

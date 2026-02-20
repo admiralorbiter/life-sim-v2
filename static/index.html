@@ -22,6 +22,9 @@
                 <div class="stat" id="stat-stress-wrap">😰 <span id="stat-stress">20/100</span></div>
                 <div class="stat" id="stat-support-wrap">🤝 <span id="stat-support">5/10</span></div>
                 <div class="stat" id="stat-time-wrap">⏰ <span id="stat-time">3 slots</span></div>
+                <div class="stat" id="stat-bills-row" style="display:none">🏠 <span id="stat-bills">$0/turn</span></div>
+                <div class="stat" id="stat-efund-row" style="display:none">🏦 <span id="stat-efund">$0</span></div>
+                <div class="stat" id="stat-job-row" style="display:none">💼 <span id="stat-job">None</span></div>
             </div>
 
             <div class="credentials-bar" id="credentials-bar">
@@ -63,11 +66,51 @@
         <footer class="game-footer">
             <p>Life Roguelite v0.1.0</p>
         </footer>
+
+        <!-- Debug Panel (dev only) -->
+        <div class="debug-panel" id="debug-panel">
+            <button class="debug-toggle" onclick="DebugPanel.toggle()">🛠️ Dev Tools</button>
+            <div class="debug-body" id="debug-body" style="display:none">
+                <div class="debug-section">
+                    <h4>Stage Control</h4>
+                    <button class="btn btn-debug" onclick="DebugPanel.skipStage()">⏭️ Skip to Next Stage</button>
+                    <button class="btn btn-debug" onclick="DebugPanel.autoPlayTurn()">⚡ Auto-Play Turn</button>
+                </div>
+                <div class="debug-section">
+                    <h4>Set Stats</h4>
+                    <div class="debug-stats-grid">
+                        <label>💰 <input type="number" id="dbg-money" placeholder="money"></label>
+                        <label>😰 <input type="number" id="dbg-stress" placeholder="stress"></label>
+                        <label>🤝 <input type="number" id="dbg-support" placeholder="support"></label>
+                        <label>🏠 <input type="number" id="dbg-bills" placeholder="bills"></label>
+                        <label>🏦 <input type="number" id="dbg-efund" placeholder="e-fund"></label>
+                        <label>🔄 <input type="number" id="dbg-turn" placeholder="turn"></label>
+                    </div>
+                    <button class="btn btn-debug" onclick="DebugPanel.setStats()">Apply Stats</button>
+                </div>
+                <div class="debug-section">
+                    <h4>Grant Credential</h4>
+                    <div class="debug-tag-row">
+                        <select id="dbg-tag">
+                            <option value="Honor Roll">Honor Roll</option>
+                            <option value="IT Fundamentals">IT Fundamentals</option>
+                            <option value="Leadership">Leadership</option>
+                            <option value="Trade Cert">Trade Cert</option>
+                            <option value="CPR">CPR</option>
+                            <option value="College Prep">College Prep</option>
+                            <option value="Apprenticeship">Apprenticeship</option>
+                        </select>
+                        <button class="btn btn-debug" onclick="DebugPanel.grantTag()">Grant</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="/js/api.js"></script>
     <script src="/js/components.js"></script>
     <script src="/js/app.js"></script>
+    <script src="/js/debug.js"></script>
 </body>
 
 </html>

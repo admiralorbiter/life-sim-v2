@@ -16,6 +16,37 @@
         "description": "Flip burgers, work the register. It's a job."
     },
     {
+        "id": "job_retail",
+        "title": "Retail Associate",
+        "requiredTags": [],
+        "recommendedTags": [
+            "Customer Service"
+        ],
+        "payPerTurn": 30,
+        "stressPerTurn": 4,
+        "growthRate": 0,
+        "stages": [
+            "high-school",
+            "early-adult"
+        ],
+        "description": "Fold clothes, restock shelves, smile at everyone."
+    },
+    {
+        "id": "job_warehouse",
+        "title": "Warehouse Associate",
+        "requiredTags": [],
+        "recommendedTags": [
+            "Forklift Cert"
+        ],
+        "payPerTurn": 45,
+        "stressPerTurn": 5,
+        "growthRate": 0,
+        "stages": [
+            "early-adult"
+        ],
+        "description": "Move boxes, load trucks. Physical work."
+    },
+    {
         "id": "job_helpdesk",
         "title": "Helpdesk Technician",
         "requiredTags": [
@@ -34,18 +65,54 @@
         "description": "Answer tickets, reset passwords, learn on the job."
     },
     {
-        "id": "job_warehouse",
-        "title": "Warehouse Associate",
-        "requiredTags": [],
-        "recommendedTags": [
-            "Forklift Cert"
+        "id": "job_trade_apprentice",
+        "title": "Trade Apprentice",
+        "requiredTags": [
+            "Trade Cert"
         ],
-        "payPerTurn": 45,
-        "stressPerTurn": 5,
-        "growthRate": 0,
+        "recommendedTags": [],
+        "payPerTurn": 65,
+        "stressPerTurn": 4,
+        "growthRate": 2,
+        "growthTag": "Journeyman",
         "stages": [
             "early-adult"
         ],
-        "description": "Move boxes, load trucks. Physical work."
+        "description": "Learn a trade under a master. Hard work, good money, real skills."
+    },
+    {
+        "id": "job_healthcare_aide",
+        "title": "Healthcare Aide",
+        "requiredTags": [
+            "CPR"
+        ],
+        "recommendedTags": [
+            "Community Service"
+        ],
+        "payPerTurn": 70,
+        "stressPerTurn": 5,
+        "growthRate": 2,
+        "growthTag": "CNA",
+        "stages": [
+            "early-adult"
+        ],
+        "description": "Help patients with daily care. Tough but meaningful work."
+    },
+    {
+        "id": "job_office_assistant",
+        "title": "Office Assistant",
+        "requiredTags": [],
+        "recommendedTags": [
+            "Honor Roll",
+            "Portfolio"
+        ],
+        "payPerTurn": 55,
+        "stressPerTurn": 3,
+        "growthRate": 1,
+        "growthTag": "Office Management",
+        "stages": [
+            "early-adult"
+        ],
+        "description": "Answer phones, manage files, keep things running."
     }
 ]

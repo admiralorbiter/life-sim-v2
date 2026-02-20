@@ -87,22 +87,34 @@
 **Goal:** Full 12-turn playthrough from Stage A through Stage D.
 
 ### Tasks
-- [ ] Author actions, decisions, and events for Stages B, C, and D
+- [x] Author actions, decisions, and events for Stages B, C, and D
   - Stage B: 8 event cards, 3 decisions, action pool
   - Stage C: 6 event cards, path selection decision, action pool
   - Stage D: 10 event cards, 3 decisions, action pool + budget system
-- [ ] Build stage transition screen in frontend (summary of stage, preview of next)
-- [ ] Implement stage progression logic in `turn_runner.rs`
-- [ ] Implement monthly bills system (Stage D): deduct from money each turn
-- [ ] Implement emergency fund mechanic (Stage D): optional save action
-- [ ] Add delayed effects system (effects that trigger N turns after being applied)
-- [ ] Update stats bar UI to show bills / emergency fund in Stage D
+- [x] Build stage transition screen in frontend (summary of stage, preview of next)
+- [x] Implement stage progression logic in `turn_runner.rs`
+- [x] Implement monthly bills system (Stage D): deduct from money each turn
+- [x] Implement emergency fund mechanic (Stage D): optional save action
+- [x] Add delayed effects system (effects that trigger N turns after being applied)
+- [x] Update stats bar UI to show bills / emergency fund in Stage D
+- [x] Implement debug/dev tools panel for rapid testing
+
+### Debug / Dev Tools
+A collapsible debug panel (`🛠️ Dev Tools`) is available at the bottom of the screen:
+
+| Feature | Endpoint | Description |
+|---------|----------|-------------|
+| **Skip Stage** | `POST /api/debug/skip_stage` | Jumps to the start of the next life stage |
+| **Auto-Play Turn** | client-side | Selects first action/decision/event, submits turn |
+| **Set Stats** | `POST /api/debug/set_stats` | Override money, stress, support, bills, e-fund, turn |
+| **Grant Credential** | `POST /api/debug/grant_tag` | Grants any credential tag to the player |
 
 ### Definition of Done
-- Player can complete a full 12-turn game across all 4 stages
-- Stage transitions display a summary
-- Monthly bills deduct correctly in Stage D
-- Delayed effects fire on the correct turn
+- [x] Player can complete a full 12-turn game across all 4 stages
+- [x] Stage transitions display a summary
+- [x] Monthly bills deduct correctly in Stage D
+- [x] Delayed effects fire on the correct turn
+- [x] Debug panel allows rapid stage/stat manipulation for testing
 
 ---
 

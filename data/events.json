@@ -3,23 +3,40 @@
     "id": "evt_phone_breaks_a",
     "title": "Phone Breaks",
     "flavorText": "Your phone screen just cracked. It still works, but barely.",
-    "stages": ["middle-school"],
+    "stages": [
+      "middle-school"
+    ],
     "rarity": "common",
     "options": [
       {
         "label": "Buy a screen protector",
         "description": "Cheap fix, but it's not great.",
-        "effects": [{ "stat": "money", "delta": -25 }]
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -25
+          }
+        ]
       },
       {
         "label": "Use it cracked",
         "description": "Save your money, deal with the annoyance.",
-        "effects": [{ "stat": "stress", "delta": 5 }]
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 5
+          }
+        ]
       },
       {
         "label": "Ask family for help",
         "description": "They might cover it, but you owe them.",
-        "effects": [{ "stat": "support", "delta": -1 }]
+        "effects": [
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ]
       }
     ]
   },
@@ -27,21 +44,34 @@
     "id": "evt_new_teacher_a",
     "title": "New Teacher Notices You",
     "flavorText": "Your science teacher pulls you aside and says you have potential.",
-    "stages": ["middle-school"],
+    "stages": [
+      "middle-school"
+    ],
     "rarity": "uncommon",
     "options": [
       {
         "label": "Join the after-school program",
         "description": "Extra work, but a great connection.",
         "effects": [
-          { "stat": "support", "delta": 2 },
-          { "stat": "stress", "delta": 5 }
+          {
+            "stat": "support",
+            "delta": 2
+          },
+          {
+            "stat": "stress",
+            "delta": 5
+          }
         ]
       },
       {
         "label": "Say thanks, keep your schedule",
         "description": "Nice to hear, but you're busy.",
-        "effects": [{ "stat": "support", "delta": 1 }]
+        "effects": [
+          {
+            "stat": "support",
+            "delta": 1
+          }
+        ]
       }
     ]
   },
@@ -49,26 +79,44 @@
     "id": "evt_friend_drama_a",
     "title": "Friend Drama",
     "flavorText": "Your two closest friends are fighting and both want you to pick a side.",
-    "stages": ["middle-school"],
+    "stages": [
+      "middle-school"
+    ],
     "rarity": "common",
     "options": [
       {
         "label": "Try to mediate",
         "description": "Play peacemaker. It's stressful but might work.",
         "effects": [
-          { "stat": "stress", "delta": 8 },
-          { "stat": "support", "delta": 1 }
+          {
+            "stat": "stress",
+            "delta": 8
+          },
+          {
+            "stat": "support",
+            "delta": 1
+          }
         ]
       },
       {
         "label": "Stay out of it",
         "description": "Not your problem. But they might be upset.",
-        "effects": [{ "stat": "support", "delta": -1 }]
+        "effects": [
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ]
       },
       {
         "label": "Pick a side",
         "description": "You keep one friend happy, lose the other.",
-        "effects": [{ "stat": "stress", "delta": 3 }]
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 3
+          }
+        ]
       }
     ]
   },
@@ -76,26 +124,44 @@
     "id": "evt_bike_broken_a",
     "title": "Bike Trouble",
     "flavorText": "Your bike tire is flat and you need to get to school.",
-    "stages": ["middle-school"],
+    "stages": [
+      "middle-school"
+    ],
     "rarity": "common",
     "options": [
       {
         "label": "Buy a new tube",
         "description": "Quick fix, costs a bit.",
-        "effects": [{ "stat": "money", "delta": -15 }]
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -15
+          }
+        ]
       },
       {
         "label": "Walk this week",
         "description": "It works, but eats into your time.",
         "effects": [
-          { "stat": "timeSlots", "delta": -1 },
-          { "stat": "stress", "delta": 5 }
+          {
+            "stat": "timeSlots",
+            "delta": -1
+          },
+          {
+            "stat": "stress",
+            "delta": 5
+          }
         ]
       },
       {
         "label": "Ask a friend's parent for rides",
         "description": "They'll help, but you owe them.",
-        "effects": [{ "stat": "support", "delta": -1 }],
+        "effects": [
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ],
         "requiresSupport": 3
       }
     ]
@@ -104,22 +170,822 @@
     "id": "evt_club_invite_a",
     "title": "Club Invitation",
     "flavorText": "The robotics club is looking for new members. The advisor says you'd be great.",
-    "stages": ["middle-school"],
+    "stages": [
+      "middle-school"
+    ],
     "rarity": "uncommon",
     "options": [
       {
         "label": "Join the club",
         "description": "New skills and friends, but it'll take time.",
         "effects": [
-          { "stat": "stress", "delta": 3 },
-          { "stat": "support", "delta": 1 },
-          { "stat": "credentials", "delta": 0, "tag": "Robotics" }
+          {
+            "stat": "stress",
+            "delta": 3
+          },
+          {
+            "stat": "support",
+            "delta": 1
+          },
+          {
+            "stat": "credentials",
+            "delta": 0,
+            "tag": "Robotics"
+          }
         ]
       },
       {
         "label": "Pass for now",
         "description": "Maybe next semester. Keep your time free.",
         "effects": []
+      }
+    ]
+  },
+  {
+    "id": "evt_peer_pressure_b",
+    "title": "Peer Pressure",
+    "flavorText": "Some kids at school want you to skip class and hang out at the mall.",
+    "stages": [
+      "high-school"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Go along",
+        "description": "It's fun in the moment. Consequences later.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": -5
+          },
+          {
+            "stat": "support",
+            "delta": 1
+          }
+        ]
+      },
+      {
+        "label": "Say no",
+        "description": "You stay. They call you boring.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 3
+          },
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ]
+      },
+      {
+        "label": "Suggest something else",
+        "description": "Redirect the group. Takes social skill.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 2
+          },
+          {
+            "stat": "support",
+            "delta": 1
+          }
+        ],
+        "requiresSupport": 4
+      }
+    ]
+  },
+  {
+    "id": "evt_scholarship_b",
+    "title": "Scholarship Opportunity",
+    "flavorText": "Your counselor tells you about a local scholarship. Deadline is tight.",
+    "stages": [
+      "high-school"
+    ],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Apply immediately",
+        "description": "Drop everything and write the essay. Worth the stress if you get it.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 8
+          },
+          {
+            "stat": "money",
+            "delta": 100
+          }
+        ]
+      },
+      {
+        "label": "Skip it",
+        "description": "Too much pressure right now.",
+        "effects": []
+      }
+    ]
+  },
+  {
+    "id": "evt_family_crisis_b",
+    "title": "Family Crisis",
+    "flavorText": "A family member is in the hospital. Everyone's stressed.",
+    "stages": [
+      "high-school"
+    ],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Be there for family",
+        "description": "Miss some school, but your family needs you.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 10
+          },
+          {
+            "stat": "support",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "label": "Keep going to school",
+        "description": "You push through. Others handle it.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 6
+          },
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_job_offer_b",
+    "title": "Part-Time Job Offer",
+    "flavorText": "The local grocery store is hiring and the manager liked your application.",
+    "stages": [
+      "high-school"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Take the job",
+        "description": "Money coming in, but less free time.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": 40
+          },
+          {
+            "stat": "stress",
+            "delta": 5
+          },
+          {
+            "stat": "timeSlots",
+            "delta": -1
+          }
+        ]
+      },
+      {
+        "label": "Decline",
+        "description": "Keep your schedule open. Focus on school.",
+        "effects": []
+      }
+    ]
+  },
+  {
+    "id": "evt_relationship_b",
+    "title": "Relationship Drama",
+    "flavorText": "Your first serious relationship is getting complicated. Your friends have opinions.",
+    "stages": [
+      "high-school"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Invest in the relationship",
+        "description": "Spend time and energy on making it work.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 5
+          },
+          {
+            "stat": "support",
+            "delta": 1
+          }
+        ]
+      },
+      {
+        "label": "Pull back",
+        "description": "Focus on yourself. It might not last.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 3
+          },
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ]
+      },
+      {
+        "label": "Talk to a trusted adult",
+        "description": "Get perspective. Healthy move.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": -3
+          },
+          {
+            "stat": "support",
+            "delta": 1
+          }
+        ],
+        "requiresSupport": 5
+      }
+    ]
+  },
+  {
+    "id": "evt_bullying_b",
+    "title": "Bullying Incident",
+    "flavorText": "Someone's been targeting you online. Screenshots are spreading.",
+    "stages": [
+      "high-school"
+    ],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Report it",
+        "description": "Tell administration. It might help, or it might not.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 5
+          },
+          {
+            "stat": "support",
+            "delta": 1
+          }
+        ]
+      },
+      {
+        "label": "Ignore it",
+        "description": "Hope it blows over. Keep your head down.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 8
+          }
+        ]
+      },
+      {
+        "label": "Confront them",
+        "description": "Stand up for yourself. Risky but empowering.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 6
+          },
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_gap_year_c",
+    "title": "Gap Year Temptation",
+    "flavorText": "A friend is taking a gap year to travel. They want you to come along.",
+    "stages": [
+      "post-high"
+    ],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Go for it",
+        "description": "Life experience! But you'll fall behind on plans.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": -8
+          },
+          {
+            "stat": "money",
+            "delta": -60
+          },
+          {
+            "stat": "support",
+            "delta": 2
+          }
+        ]
+      },
+      {
+        "label": "Stay focused",
+        "description": "Stick to your plan. There's time for travel later.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_mentor_c",
+    "title": "Mentor Connection",
+    "flavorText": "A professional in your area of interest offers to mentor you.",
+    "stages": [
+      "post-high"
+    ],
+    "rarity": "rare",
+    "options": [
+      {
+        "label": "Accept the mentorship",
+        "description": "Weekly meetings. Huge opportunity.",
+        "effects": [
+          {
+            "stat": "support",
+            "delta": 3
+          },
+          {
+            "stat": "stress",
+            "delta": 3
+          }
+        ]
+      },
+      {
+        "label": "Politely decline",
+        "description": "Your schedule is too packed right now.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": -2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_unexpected_expense_c",
+    "title": "Unexpected Expense",
+    "flavorText": "Your laptop died and you need it for school/work.",
+    "stages": [
+      "post-high"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Buy a new one",
+        "description": "Essential, but expensive.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -80
+          }
+        ]
+      },
+      {
+        "label": "Find a used one",
+        "description": "Cheaper, but unreliable.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -30
+          },
+          {
+            "stat": "stress",
+            "delta": 5
+          }
+        ]
+      },
+      {
+        "label": "Use the library",
+        "description": "Free, but incredibly inconvenient.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 8
+          },
+          {
+            "stat": "timeSlots",
+            "delta": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_roommate_c",
+    "title": "Roommate Conflict",
+    "flavorText": "Your roommate isn't paying their share of bills. Tension is rising.",
+    "stages": [
+      "post-high",
+      "early-adult"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Have an honest conversation",
+        "description": "Awkward but necessary.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 5
+          },
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ]
+      },
+      {
+        "label": "Cover for them this month",
+        "description": "Keep the peace, lose the money.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -40
+          },
+          {
+            "stat": "support",
+            "delta": 1
+          }
+        ]
+      },
+      {
+        "label": "Start looking for a new place",
+        "description": "Protect yourself, but it's disruptive.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 8
+          },
+          {
+            "stat": "money",
+            "delta": -20
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_car_trouble_d",
+    "title": "Car Trouble",
+    "flavorText": "Your car won't start. You need it to get to work.",
+    "stages": [
+      "early-adult"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Get it repaired",
+        "description": "Expensive but necessary.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -100
+          }
+        ]
+      },
+      {
+        "label": "Take the bus",
+        "description": "Cheaper, but adds time to your commute.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -50
+          },
+          {
+            "stat": "stress",
+            "delta": 5
+          },
+          {
+            "stat": "timeSlots",
+            "delta": -1
+          }
+        ]
+      },
+      {
+        "label": "Ask for rides",
+        "description": "Your support network might help.",
+        "effects": [
+          {
+            "stat": "support",
+            "delta": -2
+          },
+          {
+            "stat": "stress",
+            "delta": 3
+          }
+        ],
+        "requiresSupport": 4
+      }
+    ]
+  },
+  {
+    "id": "evt_medical_bill_d",
+    "title": "Medical Bill",
+    "flavorText": "You went to urgent care for a bad cough. The bill just arrived.",
+    "stages": [
+      "early-adult"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Pay it off",
+        "description": "Hurts now, but it's done.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -75
+          }
+        ]
+      },
+      {
+        "label": "Set up a payment plan",
+        "description": "Manageable, but the stress lingers.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -25
+          },
+          {
+            "stat": "stress",
+            "delta": 5
+          }
+        ]
+      },
+      {
+        "label": "Ignore it for now",
+        "description": "Bad idea. But you're broke.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 10
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_promotion_d",
+    "title": "Promotion Offer",
+    "flavorText": "Your manager says there's an opening for a team lead position.",
+    "stages": [
+      "early-adult"
+    ],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Go for it",
+        "description": "More money, more responsibility, more stress.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": 60
+          },
+          {
+            "stat": "stress",
+            "delta": 8
+          }
+        ]
+      },
+      {
+        "label": "Pass for now",
+        "description": "Stay in your comfort zone. For now.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": -3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_lease_renewal_d",
+    "title": "Lease Renewal",
+    "flavorText": "Your landlord is raising rent by 15%. The lease renewal deadline is next week.",
+    "stages": [
+      "early-adult"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Negotiate",
+        "description": "Try to get a better deal. Takes courage.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 5
+          }
+        ]
+      },
+      {
+        "label": "Accept the increase",
+        "description": "Less hassle, more cost.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": -30
+          },
+          {
+            "stat": "stress",
+            "delta": 3
+          }
+        ]
+      },
+      {
+        "label": "Move somewhere cheaper",
+        "description": "Save money, but moving is exhausting.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 10
+          },
+          {
+            "stat": "money",
+            "delta": -20
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_identity_theft_d",
+    "title": "Identity Theft",
+    "flavorText": "Someone opened a credit card in your name. You got a letter from collections.",
+    "stages": [
+      "early-adult"
+    ],
+    "rarity": "rare",
+    "options": [
+      {
+        "label": "File a police report",
+        "description": "Start the process. It's long and stressful.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 12
+          },
+          {
+            "stat": "money",
+            "delta": -20
+          }
+        ]
+      },
+      {
+        "label": "Call the credit bureau",
+        "description": "Dispute it. Might take months.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_inheritance_d",
+    "title": "Surprise Inheritance",
+    "flavorText": "A distant relative left you some money. Not a fortune, but it helps.",
+    "stages": [
+      "early-adult"
+    ],
+    "rarity": "rare",
+    "options": [
+      {
+        "label": "Save it",
+        "description": "Put it in your emergency fund. Smart move.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": 50
+          }
+        ]
+      },
+      {
+        "label": "Pay off debt",
+        "description": "Clear your bills. Breathe easier.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": 50
+          },
+          {
+            "stat": "stress",
+            "delta": -5
+          }
+        ]
+      },
+      {
+        "label": "Treat yourself",
+        "description": "You deserve something nice for once.",
+        "effects": [
+          {
+            "stat": "money",
+            "delta": 20
+          },
+          {
+            "stat": "stress",
+            "delta": -8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_workplace_conflict_d",
+    "title": "Workplace Conflict",
+    "flavorText": "A coworker is taking credit for your work. Your boss doesn't seem to notice.",
+    "stages": [
+      "early-adult"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Speak up",
+        "description": "Talk to your boss directly. Risky but fair.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 6
+          },
+          {
+            "stat": "support",
+            "delta": 1
+          }
+        ]
+      },
+      {
+        "label": "Document everything",
+        "description": "Build your case quietly. Play the long game.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 4
+          }
+        ]
+      },
+      {
+        "label": "Let it go",
+        "description": "Pick your battles. This one isn't worth it.",
+        "effects": [
+          {
+            "stat": "stress",
+            "delta": 3
+          },
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_community_d",
+    "title": "Community Opportunity",
+    "flavorText": "A local nonprofit needs volunteers for a weekend event. Your friend signed you up.",
+    "stages": [
+      "early-adult"
+    ],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Show up and help",
+        "description": "Give back. Meet new people.",
+        "effects": [
+          {
+            "stat": "support",
+            "delta": 2
+          },
+          {
+            "stat": "stress",
+            "delta": 3
+          }
+        ]
+      },
+      {
+        "label": "Back out",
+        "description": "You're too busy right now.",
+        "effects": [
+          {
+            "stat": "support",
+            "delta": -1
+          }
+        ]
       }
     ]
   }

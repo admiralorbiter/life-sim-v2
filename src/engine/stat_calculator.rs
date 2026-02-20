@@ -2,6 +2,7 @@ use crate::engine::game_state::GameState;
 use crate::models::event::{StatEffect, StatType};
 
 /// Clamp ranges for each stat.
+#[allow(dead_code)]
 const MONEY_MIN: i32 = 0;
 const STRESS_MIN: i32 = 0;
 const STRESS_MAX: i32 = 100;
@@ -13,8 +14,10 @@ const TIME_SLOTS_MAX: u32 = 4;
 /// Stress threshold: above this, outcomes degrade.
 pub const STRESS_DANGER: i32 = 75;
 /// Support threshold: above this, free mitigation available.
+#[allow(dead_code)]
 pub const SUPPORT_BONUS: i32 = 7;
 /// Money threshold: at or below 0, triggers debt card.
+#[allow(dead_code)]
 pub const MONEY_DANGER: i32 = 0;
 
 /// Apply a list of stat effects to the game state, with clamping.
@@ -27,7 +30,7 @@ pub fn apply_effects(state: &mut GameState, effects: &[StatEffect]) -> Vec<Strin
             StatType::Money => {
                 let before = state.money;
                 state.money += effect.delta;
-                state.money = state.money.max(MONEY_MIN);
+                // No floor clamp — money CAN go negative (debt).
                 let actual = state.money - before;
                 if actual != 0 {
                     feedback.push(format!("💰 Money {:+}", actual));
@@ -99,8 +102,25 @@ pub fn apply_monthly_bills(state: &mut GameState) -> Vec<String> {
     if state.monthly_bills > 0 {
         state.money -= state.monthly_bills;
         feedback.push(format!("🏠 Bills: -${}", state.monthly_bills));
-        if state.money < MONEY_DANGER {
-            feedback.push("⚠️ You're in debt! A debt card will appear next turn.".to_string());
+        if state.money < 0 {
+            feedback.push("⚠️ You're in debt! Bills exceeded your cash.".to_string());
+        }
+    }
+    feedback
+}
+
+/// Apply emergency fund to cover debt (Stage D, after bills).
+/// If money is negative and we have an emergency fund, draw from it.
+pub fn apply_emergency_fund(state: &mut GameState) -> Vec<String> {
+    let mut feedback = Vec::new();
+    if state.money < 0 && state.emergency_fund > 0 {
+        let shortfall = (-state.money) as i32;
+        let covered = shortfall.min(state.emergency_fund);
+        state.money += covered;
+        state.emergency_fund -= covered;
+        feedback.push(format!("🏦 Emergency fund covered ${} (remaining: ${})", covered, state.emergency_fund));
+        if state.money >= 0 {
+            feedback.push("✅ Debt cleared by emergency fund!".to_string());
         }
     }
     feedback
@@ -116,11 +136,13 @@ pub fn check_stress_threshold(state: &GameState) -> Option<String> {
 }
 
 /// Check if support is high enough for bonus mitigation.
+#[allow(dead_code)]
 pub fn has_support_bonus(state: &GameState) -> bool {
     state.support > SUPPORT_BONUS
 }
 
 /// Check if player is in debt.
+#[allow(dead_code)]
 pub fn is_in_debt(state: &GameState) -> bool {
     state.money <= MONEY_DANGER
 }
@@ -170,10 +192,10 @@ mod tests {
     }
 
     #[test]
-    fn test_money_clamps_at_zero() {
+    fn test_money_can_go_negative() {
         let mut state = make_state(); // money = 100
         apply_effects(&mut state, &[money_effect(-200)]);
-        assert_eq!(state.money, 0, "Money should clamp at 0");
+        assert_eq!(state.money, -100, "Money should be able to go negative (debt)");
     }
 
     #[test]

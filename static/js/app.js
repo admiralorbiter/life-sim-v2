@@ -9,6 +9,7 @@ const Game = {
     turnLog: [],
     prevState: null,
     currentState: null,
+    pendingTransition: null, // { oldStage, newStage }
 
     // ─── Boot ───────────────────────────────────────────
     init() {
@@ -24,6 +25,7 @@ const Game = {
             this.currentState = result.state;
             this.prevState = null;
             this.turnLog = [];
+            this.pendingTransition = null;
             Components.updateStats(result.state, null);
             this.renderTurnLog();
             this.phase = 'plan';
@@ -147,13 +149,15 @@ const Game = {
             return;
         }
 
+        const playerCreds = this.currentState?.credentials || [];
+
         let html = `
             <div class="phase-card">
                 <div class="phase-label">Phase 2 of 4</div>
                 <h2>🤔 ${decision.prompt}</h2>
                 <p class="phase-hint">This decision will shape your future. Choose wisely.</p>
                 <div class="decision-grid" id="decision-grid">
-                    ${decision.options.map((opt, i) => Components.decisionCard(opt, i, false)).join('')}
+                    ${decision.options.map((opt, i) => Components.decisionCard(opt, i, false, playerCreds)).join('')}
                 </div>
                 <div class="phase-nav">
                     <button class="btn btn-secondary" onclick="Game.backToPlan()">← Back to Plan</button>
@@ -280,6 +284,15 @@ const Game = {
             return;
         }
 
+        // Check for stage transition
+        const turnResult = result.turnResult || {};
+        if (turnResult.stageTransitioned && turnResult.oldStage && turnResult.newStage) {
+            this.pendingTransition = {
+                oldStage: turnResult.oldStage,
+                newStage: turnResult.newStage,
+            };
+        }
+
         this.renderFeedback(result);
     },
 
@@ -327,15 +340,15 @@ const Game = {
             html += `</div>`;
         }
 
-        // Stage transition banner
+        // Stage transition banner (if transitioning)
         if (turnResult.stageTransitioned) {
             const stageNames = {
                 'middle-school': 'Middle School', 'high-school': 'High School',
-                'post-high': 'Post-High Decision', 'early-adult': 'Early Adult',
+                'post-high': 'Post-High', 'early-adult': 'Early Adult',
             };
             const newStage = stageNames[state?.currentStage] || state?.currentStage;
             html += `
-                <div class="stage-transition">
+                <div class="stage-transition-banner">
                     🎓 Stage Complete! Advancing to <strong>${newStage}</strong>
                 </div>
             `;
@@ -348,7 +361,9 @@ const Game = {
 
         html += `
             <div class="phase-nav">
-                <button class="btn btn-primary" onclick="Game.nextTurn()">Next Turn →</button>
+                <button class="btn btn-primary" onclick="Game.nextTurn()">
+                    ${turnResult.stageTransitioned ? 'Continue to New Stage →' : 'Next Turn →'}
+                </button>
             </div>
         </div>`;
 
@@ -356,6 +371,26 @@ const Game = {
     },
 
     nextTurn() {
+        // Check if we have a pending stage transition to show
+        if (this.pendingTransition) {
+            const { oldStage, newStage } = this.pendingTransition;
+            this.pendingTransition = null;
+            this.renderStageTransition(oldStage, newStage);
+            return;
+        }
+
+        this.phase = 'plan';
+        this.resetSelections();
+        this.loadPhase();
+    },
+
+    // ─── Stage Transition Screen ────────────────────────
+    renderStageTransition(oldStage, newStage) {
+        const content = document.getElementById('phase-content');
+        content.innerHTML = Components.stageTransitionScreen(oldStage, newStage, this.currentState);
+    },
+
+    continueAfterTransition() {
         this.phase = 'plan';
         this.resetSelections();
         this.loadPhase();

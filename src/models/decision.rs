@@ -22,4 +22,13 @@ pub struct DecisionOption {
     pub effects: Vec<StatEffect>,
     #[serde(default)]
     pub grants_tag: Option<String>,
+    /// If set, assigns monthly_bills to this value on the game state.
+    #[serde(default)]
+    pub sets_bills: Option<i32>,
+    /// If set, assigns the player's current_job to the job with this ID.
+    #[serde(default)]
+    pub sets_job: Option<String>,
+    /// If set, this option is only available if the player has this credential.
+    #[serde(default)]
+    pub requires_tag: Option<String>,
 }

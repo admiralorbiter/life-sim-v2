@@ -81,5 +81,427 @@
                 ]
             }
         ]
+    },
+    {
+        "id": "dec_friend_group_b",
+        "stage": "high-school",
+        "turn": 5,
+        "prompt": "High school means new people. Who do you hang with?",
+        "options": [
+            {
+                "label": "The Achievers",
+                "description": "Motivated friends who push you to do more. Stressful but productive.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 5
+                    },
+                    {
+                        "stat": "support",
+                        "delta": 1
+                    }
+                ],
+                "grantsTag": "Study Group"
+            },
+            {
+                "label": "The Chill Crew",
+                "description": "Low-key friends. Less pressure, more fun.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": -4
+                    },
+                    {
+                        "stat": "support",
+                        "delta": 2
+                    }
+                ]
+            },
+            {
+                "label": "Mix it up",
+                "description": "Bounce between groups. You know everyone, but nobody deeply.",
+                "effects": [
+                    {
+                        "stat": "support",
+                        "delta": 1
+                    },
+                    {
+                        "stat": "stress",
+                        "delta": 1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "dec_summer_b",
+        "stage": "high-school",
+        "turn": 7,
+        "prompt": "Summer break is here. What's the plan?",
+        "options": [
+            {
+                "label": "Summer Job",
+                "description": "Work full-time. Good money, but say goodbye to your summer.",
+                "effects": [
+                    {
+                        "stat": "money",
+                        "delta": 80
+                    },
+                    {
+                        "stat": "stress",
+                        "delta": 8
+                    }
+                ],
+                "grantsTag": "Customer Service"
+            },
+            {
+                "label": "Volunteer Camp",
+                "description": "Help out at a community program. No pay, but great experience.",
+                "effects": [
+                    {
+                        "stat": "support",
+                        "delta": 2
+                    },
+                    {
+                        "stat": "stress",
+                        "delta": 2
+                    }
+                ],
+                "grantsTag": "Community Service"
+            },
+            {
+                "label": "Relax",
+                "description": "Take the summer off. You've earned it... right?",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": -10
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "dec_senior_year_b",
+        "stage": "high-school",
+        "turn": 9,
+        "prompt": "Senior year. How do you finish strong?",
+        "options": [
+            {
+                "label": "Apply to programs",
+                "description": "Put in applications for college or trade programs. Stressful but important.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 8
+                    },
+                    {
+                        "stat": "money",
+                        "delta": -50
+                    }
+                ]
+            },
+            {
+                "label": "Get certified",
+                "description": "Take a certification course. Practical and fast.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 5
+                    },
+                    {
+                        "stat": "money",
+                        "delta": -30
+                    }
+                ],
+                "grantsTag": "CPR"
+            },
+            {
+                "label": "Just graduate",
+                "description": "Focus on getting through. Figure the rest out later.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": -2
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "dec_path_c",
+        "stage": "post-high",
+        "turn": 11,
+        "prompt": "High school is over. What's next?",
+        "options": [
+            {
+                "label": "Community College",
+                "description": "Enroll at JCCC. Affordable education, takes time.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 6
+                    },
+                    {
+                        "stat": "money",
+                        "delta": -60
+                    }
+                ],
+                "grantsTag": "Associate Degree"
+            },
+            {
+                "label": "Trade Program",
+                "description": "Learn a trade — HVAC, welding, electrical. Hands-on and in demand.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 5
+                    },
+                    {
+                        "stat": "money",
+                        "delta": -40
+                    }
+                ],
+                "grantsTag": "Trade Cert"
+            },
+            {
+                "label": "Straight to Work",
+                "description": "Start earning immediately. No debt, but fewer options.",
+                "effects": [
+                    {
+                        "stat": "money",
+                        "delta": 50
+                    },
+                    {
+                        "stat": "stress",
+                        "delta": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "dec_housing_c",
+        "stage": "post-high",
+        "turn": 12,
+        "prompt": "Where are you going to live?",
+        "options": [
+            {
+                "label": "Stay with family",
+                "description": "Free rent. Less independence, but saves money.",
+                "effects": [
+                    {
+                        "stat": "support",
+                        "delta": 1
+                    },
+                    {
+                        "stat": "stress",
+                        "delta": 2
+                    }
+                ],
+                "setsBills": 0
+            },
+            {
+                "label": "Get roommates",
+                "description": "Split a place. Moderate cost, some freedom.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 3
+                    }
+                ],
+                "setsBills": 40
+            },
+            {
+                "label": "Live alone",
+                "description": "Full independence. Full bills. Full responsibility.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 5
+                    },
+                    {
+                        "stat": "support",
+                        "delta": -1
+                    }
+                ],
+                "setsBills": 75
+            }
+        ]
+    },
+    {
+        "id": "dec_first_job_d",
+        "stage": "early-adult",
+        "turn": 14,
+        "prompt": "Time to find steady work. What job do you go for?",
+        "options": [
+            {
+                "label": "Fast Food Crew",
+                "description": "No requirements. $35/turn. Stressful but available.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 3
+                    }
+                ],
+                "setsJob": "job_fast_food"
+            },
+            {
+                "label": "Retail Associate",
+                "description": "No requirements. $30/turn. Customer-facing.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 2
+                    }
+                ],
+                "setsJob": "job_retail"
+            },
+            {
+                "label": "Warehouse Associate",
+                "description": "No requirements. $45/turn. Physical work.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 4
+                    }
+                ],
+                "setsJob": "job_warehouse"
+            },
+            {
+                "label": "Helpdesk Technician",
+                "description": "Requires IT Fundamentals. $80/turn. Good growth.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 1
+                    }
+                ],
+                "setsJob": "job_helpdesk",
+                "requiresTag": "IT Fundamentals"
+            },
+            {
+                "label": "Trade Apprentice",
+                "description": "Requires Trade Cert. $65/turn. Hands-on career.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 2
+                    }
+                ],
+                "setsJob": "job_trade_apprentice",
+                "requiresTag": "Trade Cert"
+            },
+            {
+                "label": "Healthcare Aide",
+                "description": "Requires CPR. $70/turn. Meaningful work.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 3
+                    }
+                ],
+                "setsJob": "job_healthcare_aide",
+                "requiresTag": "CPR"
+            }
+        ]
+    },
+    {
+        "id": "dec_career_crossroads_d",
+        "stage": "early-adult",
+        "turn": 16,
+        "prompt": "You've been working a while. What now?",
+        "options": [
+            {
+                "label": "Stay the course",
+                "description": "Keep your current job. Stability is valuable.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": -3
+                    }
+                ]
+            },
+            {
+                "label": "Go back to school",
+                "description": "Invest in yourself. Costly and stressful, but could pay off.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 8
+                    },
+                    {
+                        "stat": "money",
+                        "delta": -80
+                    }
+                ],
+                "grantsTag": "Continuing Ed"
+            },
+            {
+                "label": "Start a side business",
+                "description": "Risky, but you're building something of your own.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 6
+                    },
+                    {
+                        "stat": "money",
+                        "delta": -40
+                    },
+                    {
+                        "stat": "support",
+                        "delta": -1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "dec_community_d",
+        "stage": "early-adult",
+        "turn": 18,
+        "prompt": "You've been invited to help with a community project. What do you do?",
+        "options": [
+            {
+                "label": "Lead the project",
+                "description": "Take charge. More work, but builds your reputation.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 6
+                    },
+                    {
+                        "stat": "support",
+                        "delta": 3
+                    }
+                ],
+                "grantsTag": "Leadership"
+            },
+            {
+                "label": "Help out",
+                "description": "Contribute what you can without overcommitting.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 2
+                    },
+                    {
+                        "stat": "support",
+                        "delta": 1
+                    }
+                ]
+            },
+            {
+                "label": "Pass",
+                "description": "You've got enough on your plate.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": -2
+                    }
+                ]
+            }
+        ]
     }
 ]
