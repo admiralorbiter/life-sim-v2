@@ -36,16 +36,16 @@
 **Goal:** The engine can run a single turn end-to-end with hardcoded data.
 
 ### Tasks
-- [ ] Implement `stat_calculator.rs` — apply stat changes with clamping and threshold checks
-- [ ] Implement `event_deck.rs` — filter by stage, draw by rarity, track used cards
-- [ ] Implement `turn_runner.rs` — orchestrate the 4-phase loop (plan → commit → event → feedback)
-- [ ] Define action effects in `data/actions.json` (Stage A only for now)
-- [ ] Define 5 test event cards in `data/events.json` (Stage A)
-- [ ] Define 2 test decisions in `data/decisions.json` (Stage A)
-- [ ] Implement `GameState` initialization with default values
-- [ ] Write unit tests for `stat_calculator` (clamping, stress threshold, support bonus)
-- [ ] Write unit tests for `event_deck` (filtering, no-repeat draw, rarity weighting)
-- [ ] Write integration test: run 3 turns, verify state mutations
+- [x] Implement `stat_calculator.rs` — apply stat changes with clamping and threshold checks
+- [x] Implement `event_deck.rs` — filter by stage, draw by rarity, track used cards
+- [x] Implement `turn_runner.rs` — orchestrate the 4-phase loop (plan → commit → event → feedback)
+- [x] Define action effects in `data/actions.json` (Stage A only for now)
+- [x] Define 5 test event cards in `data/events.json` (Stage A)
+- [x] Define 2 test decisions in `data/decisions.json` (Stage A)
+- [x] Implement `GameState` initialization with default values
+- [x] Write unit tests for `stat_calculator` (clamping, stress threshold, support bonus)
+- [x] Write unit tests for `event_deck` (filtering, no-repeat draw, rarity weighting)
+- [x] Write integration test: run 3 turns, verify state mutations
 
 ### Definition of Done
 - `turn_runner` executes a full turn given mock player choices

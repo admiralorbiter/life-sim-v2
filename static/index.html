@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>Life Roguelite</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
     <div id="app">
         <header class="game-header">
@@ -34,32 +36,25 @@
             <div class="phase-content" id="phase-content">
                 <div class="placeholder-card">
                     <h2>Welcome to Life Roguelite</h2>
-                    <p>You start as a middle schooler and progress through 4 life stages. Make choices, draw Life Event cards, and keep your life stable while pursuing goals.</p>
-                    <p class="hint">The game teaches tradeoffs, recovery, and planning — not "pick the perfect path."</p>
-                    <button id="btn-start" class="btn btn-primary" onclick="checkServer()">Check Server Status</button>
-                    <div id="server-status" class="status-message"></div>
+                    <p>You start as a middle schooler and progress through 4 life stages. Make choices, draw Life Event
+                        cards, and keep your life stable while pursuing goals.</p>
+                    <p class="hint">The game teaches tradeoffs, recovery, and planning — not "pick the perfect path."
+                    </p>
+                    <div class="seed-input-group">
+                        <input type="text" id="seed-input" placeholder="Classroom seed (optional)" maxlength="16">
+                    </div>
+                    <button id="btn-new-game" class="btn btn-primary">🎮 Start New Game</button>
                 </div>
             </div>
         </main>
 
         <footer class="game-footer">
-            <p>Life Roguelite v0.1.0 — Sprint 0</p>
+            <p>Life Roguelite v0.1.0</p>
         </footer>
     </div>
 
-    <script>
-        async function checkServer() {
-            const statusEl = document.getElementById('server-status');
-            try {
-                const res = await fetch('/api/health');
-                const data = await res.json();
-                statusEl.textContent = `✅ Server is running — ${data.game} v${data.version}`;
-                statusEl.className = 'status-message success';
-            } catch (e) {
-                statusEl.textContent = '❌ Could not reach server';
-                statusEl.className = 'status-message error';
-            }
-        }
-    </script>
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
 </body>
+
 </html>
