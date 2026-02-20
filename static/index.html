@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Life Roguelite — A choice-driven life simulation game for classrooms">
+    <title>Life Roguelite</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header class="game-header">
+            <h1>🎲 Life Roguelite</h1>
+            <p class="subtitle">A choice-driven life simulation</p>
+        </header>
+
+        <main class="game-main">
+            <div class="stats-bar" id="stats-bar">
+                <div class="stat">💰 <span id="stat-money">$100</span></div>
+                <div class="stat">😰 <span id="stat-stress">20</span>/100</div>
+                <div class="stat">🤝 <span id="stat-support">5</span>/10</div>
+                <div class="stat">⏰ <span id="stat-time">3</span> slots</div>
+            </div>
+
+            <div class="credentials-bar" id="credentials-bar">
+                📚 <span id="stat-credentials">No credentials yet</span>
+            </div>
+
+            <div class="stage-info" id="stage-info">
+                <span id="stage-label">Stage: Middle School</span>
+                <span id="turn-label">Turn: 1</span>
+            </div>
+
+            <div class="phase-content" id="phase-content">
+                <div class="placeholder-card">
+                    <h2>Welcome to Life Roguelite</h2>
+                    <p>You start as a middle schooler and progress through 4 life stages. Make choices, draw Life Event cards, and keep your life stable while pursuing goals.</p>
+                    <p class="hint">The game teaches tradeoffs, recovery, and planning — not "pick the perfect path."</p>
+                    <button id="btn-start" class="btn btn-primary" onclick="checkServer()">Check Server Status</button>
+                    <div id="server-status" class="status-message"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="game-footer">
+            <p>Life Roguelite v0.1.0 — Sprint 0</p>
+        </footer>
+    </div>
+
+    <script>
+        async function checkServer() {
+            const statusEl = document.getElementById('server-status');
+            try {
+                const res = await fetch('/api/health');
+                const data = await res.json();
+                statusEl.textContent = `✅ Server is running — ${data.game} v${data.version}`;
+                statusEl.className = 'status-message success';
+            } catch (e) {
+                statusEl.textContent = '❌ Could not reach server';
+                statusEl.className = 'status-message error';
+            }
+        }
+    </script>
+</body>
+</html>

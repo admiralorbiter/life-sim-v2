@@ -1,0 +1,135 @@
+[
+    {
+        "id": "act_study",
+        "label": "Study",
+        "description": "Hit the books. Reduces stress slightly, builds toward credentials.",
+        "stages": [
+            "middle-school",
+            "high-school",
+            "post-high",
+            "early-adult"
+        ],
+        "effects": [
+            {
+                "stat": "stress",
+                "delta": -3
+            }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_friends",
+        "label": "Friends",
+        "description": "Hang out with friends. Good for your support network.",
+        "stages": [
+            "middle-school",
+            "high-school",
+            "early-adult"
+        ],
+        "effects": [
+            {
+                "stat": "support",
+                "delta": 1
+            },
+            {
+                "stat": "stress",
+                "delta": -2
+            }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_family",
+        "label": "Family",
+        "description": "Spend time with family. Strengthens your support system.",
+        "stages": [
+            "middle-school",
+            "high-school",
+            "post-high",
+            "early-adult"
+        ],
+        "effects": [
+            {
+                "stat": "support",
+                "delta": 1
+            }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_rest",
+        "label": "Rest",
+        "description": "Take a break. You need it.",
+        "stages": [
+            "middle-school",
+            "high-school",
+            "post-high",
+            "early-adult"
+        ],
+        "effects": [
+            {
+                "stat": "stress",
+                "delta": -5
+            }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_clubs",
+        "label": "Clubs",
+        "description": "Participate in extracurriculars. Builds skills and connections.",
+        "stages": [
+            "middle-school",
+            "high-school"
+        ],
+        "effects": [
+            {
+                "stat": "stress",
+                "delta": 2
+            },
+            {
+                "stat": "support",
+                "delta": 1
+            }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_work",
+        "label": "Work",
+        "description": "Put in hours at your job. Earn money but add stress.",
+        "stages": [
+            "high-school",
+            "post-high",
+            "early-adult"
+        ],
+        "effects": [
+            {
+                "stat": "money",
+                "delta": 40
+            },
+            {
+                "stat": "stress",
+                "delta": 5
+            }
+        ],
+        "timeCost": 1
+    },
+    {
+        "id": "act_skill_building",
+        "label": "Skill-building",
+        "description": "Work on a specific skill or certification. Takes time but builds credentials.",
+        "stages": [
+            "high-school",
+            "post-high",
+            "early-adult"
+        ],
+        "effects": [
+            {
+                "stat": "stress",
+                "delta": 3
+            }
+        ],
+        "timeCost": 1
+    }
+]

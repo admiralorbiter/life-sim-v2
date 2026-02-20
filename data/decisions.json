@@ -1,0 +1,85 @@
+[
+    {
+        "id": "dec_club_choice_a",
+        "stage": "middle-school",
+        "turn": 1,
+        "prompt": "Which club do you want to join this year?",
+        "options": [
+            {
+                "label": "Tech Club",
+                "description": "Learn to code and build things. Could open doors later.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 3
+                    }
+                ],
+                "grantsTag": "IT Fundamentals"
+            },
+            {
+                "label": "Arts Club",
+                "description": "Express yourself creatively. Good for stress.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": -2
+                    }
+                ],
+                "grantsTag": "Portfolio"
+            },
+            {
+                "label": "Sports Team",
+                "description": "Stay active and meet people. Competitive though.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 5
+                    },
+                    {
+                        "stat": "support",
+                        "delta": 1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "dec_effort_a",
+        "stage": "middle-school",
+        "turn": 2,
+        "prompt": "How much effort are you putting into school this semester?",
+        "options": [
+            {
+                "label": "All in",
+                "description": "Straight A's are the goal. It'll cost you free time.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 10
+                    }
+                ],
+                "grantsTag": "Honor Roll"
+            },
+            {
+                "label": "Balanced",
+                "description": "Do well enough without burning out.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": 3
+                    }
+                ]
+            },
+            {
+                "label": "Coast",
+                "description": "Minimum effort. More free time, less future options.",
+                "effects": [
+                    {
+                        "stat": "stress",
+                        "delta": -3
+                    }
+                ]
+            }
+        ]
+    }
+]

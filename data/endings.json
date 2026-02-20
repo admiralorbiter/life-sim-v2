@@ -1,0 +1,68 @@
+[
+    {
+        "id": "ending_stable",
+        "title": "Stable + Credentialed",
+        "conditions": {
+            "money": {
+                "min": 200
+            },
+            "credentials": {
+                "minCount": 3
+            },
+            "stress": {
+                "max": 50
+            }
+        },
+        "narrative": "You built a solid foundation. You have skills employers want, money in the bank, and room to breathe. It wasn't easy, but your planning paid off.",
+        "reflection": "What choices early on set you up for this outcome?"
+    },
+    {
+        "id": "ending_stressed",
+        "title": "Stressed but Employed",
+        "conditions": {
+            "stress": {
+                "min": 70
+            },
+            "money": {
+                "min": 100
+            }
+        },
+        "narrative": "You have a job and money coming in, but you're running on fumes. The stress is real, and something has to give eventually.",
+        "reflection": "Where did the stress start building? What could you have done differently?"
+    },
+    {
+        "id": "ending_supported",
+        "title": "Supported but Broke",
+        "conditions": {
+            "support": {
+                "min": 7
+            },
+            "money": {
+                "max": 100
+            }
+        },
+        "narrative": "You have people who care about you and a strong support network. Money is tight, but you're not alone. That counts for a lot.",
+        "reflection": "How did your relationships help you through tough times?"
+    },
+    {
+        "id": "ending_skilled",
+        "title": "Skilled but Isolated",
+        "conditions": {
+            "credentials": {
+                "minCount": 4
+            },
+            "support": {
+                "max": 3
+            }
+        },
+        "narrative": "You've built an impressive skill set, but somewhere along the way, you lost touch with the people around you. You're capable — but lonely.",
+        "reflection": "Was there a moment where you chose skills over relationships? Was it worth it?"
+    },
+    {
+        "id": "ending_recovering",
+        "title": "Off-track but Recovering",
+        "conditions": {},
+        "narrative": "Things didn't go as planned. You hit some rough patches and missed some opportunities. But you're still here, still trying, and the trend line is pointing up.",
+        "reflection": "What would you do differently if you could replay the same events?"
+    }
+]

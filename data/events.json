@@ -1,0 +1,126 @@
+[
+  {
+    "id": "evt_phone_breaks_a",
+    "title": "Phone Breaks",
+    "flavorText": "Your phone screen just cracked. It still works, but barely.",
+    "stages": ["middle-school"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Buy a screen protector",
+        "description": "Cheap fix, but it's not great.",
+        "effects": [{ "stat": "money", "delta": -25 }]
+      },
+      {
+        "label": "Use it cracked",
+        "description": "Save your money, deal with the annoyance.",
+        "effects": [{ "stat": "stress", "delta": 5 }]
+      },
+      {
+        "label": "Ask family for help",
+        "description": "They might cover it, but you owe them.",
+        "effects": [{ "stat": "support", "delta": -1 }]
+      }
+    ]
+  },
+  {
+    "id": "evt_new_teacher_a",
+    "title": "New Teacher Notices You",
+    "flavorText": "Your science teacher pulls you aside and says you have potential.",
+    "stages": ["middle-school"],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Join the after-school program",
+        "description": "Extra work, but a great connection.",
+        "effects": [
+          { "stat": "support", "delta": 2 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      },
+      {
+        "label": "Say thanks, keep your schedule",
+        "description": "Nice to hear, but you're busy.",
+        "effects": [{ "stat": "support", "delta": 1 }]
+      }
+    ]
+  },
+  {
+    "id": "evt_friend_drama_a",
+    "title": "Friend Drama",
+    "flavorText": "Your two closest friends are fighting and both want you to pick a side.",
+    "stages": ["middle-school"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Try to mediate",
+        "description": "Play peacemaker. It's stressful but might work.",
+        "effects": [
+          { "stat": "stress", "delta": 8 },
+          { "stat": "support", "delta": 1 }
+        ]
+      },
+      {
+        "label": "Stay out of it",
+        "description": "Not your problem. But they might be upset.",
+        "effects": [{ "stat": "support", "delta": -1 }]
+      },
+      {
+        "label": "Pick a side",
+        "description": "You keep one friend happy, lose the other.",
+        "effects": [{ "stat": "stress", "delta": 3 }]
+      }
+    ]
+  },
+  {
+    "id": "evt_bike_broken_a",
+    "title": "Bike Trouble",
+    "flavorText": "Your bike tire is flat and you need to get to school.",
+    "stages": ["middle-school"],
+    "rarity": "common",
+    "options": [
+      {
+        "label": "Buy a new tube",
+        "description": "Quick fix, costs a bit.",
+        "effects": [{ "stat": "money", "delta": -15 }]
+      },
+      {
+        "label": "Walk this week",
+        "description": "It works, but eats into your time.",
+        "effects": [
+          { "stat": "timeSlots", "delta": -1 },
+          { "stat": "stress", "delta": 5 }
+        ]
+      },
+      {
+        "label": "Ask a friend's parent for rides",
+        "description": "They'll help, but you owe them.",
+        "effects": [{ "stat": "support", "delta": -1 }],
+        "requiresSupport": 3
+      }
+    ]
+  },
+  {
+    "id": "evt_club_invite_a",
+    "title": "Club Invitation",
+    "flavorText": "The robotics club is looking for new members. The advisor says you'd be great.",
+    "stages": ["middle-school"],
+    "rarity": "uncommon",
+    "options": [
+      {
+        "label": "Join the club",
+        "description": "New skills and friends, but it'll take time.",
+        "effects": [
+          { "stat": "stress", "delta": 3 },
+          { "stat": "support", "delta": 1 },
+          { "stat": "credentials", "delta": 0, "tag": "Robotics" }
+        ]
+      },
+      {
+        "label": "Pass for now",
+        "description": "Maybe next semester. Keep your time free.",
+        "effects": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,51 @@
+[
+    {
+        "id": "job_fast_food",
+        "title": "Fast Food Crew",
+        "requiredTags": [],
+        "recommendedTags": [
+            "Customer Service"
+        ],
+        "payPerTurn": 35,
+        "stressPerTurn": 6,
+        "growthRate": 0,
+        "stages": [
+            "high-school",
+            "early-adult"
+        ],
+        "description": "Flip burgers, work the register. It's a job."
+    },
+    {
+        "id": "job_helpdesk",
+        "title": "Helpdesk Technician",
+        "requiredTags": [
+            "IT Fundamentals"
+        ],
+        "recommendedTags": [
+            "Customer Service"
+        ],
+        "payPerTurn": 80,
+        "stressPerTurn": 3,
+        "growthRate": 3,
+        "growthTag": "IT Support Specialist",
+        "stages": [
+            "early-adult"
+        ],
+        "description": "Answer tickets, reset passwords, learn on the job."
+    },
+    {
+        "id": "job_warehouse",
+        "title": "Warehouse Associate",
+        "requiredTags": [],
+        "recommendedTags": [
+            "Forklift Cert"
+        ],
+        "payPerTurn": 45,
+        "stressPerTurn": 5,
+        "growthRate": 0,
+        "stages": [
+            "early-adult"
+        ],
+        "description": "Move boxes, load trucks. Physical work."
+    }
+]

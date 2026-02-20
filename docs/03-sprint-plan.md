@@ -11,17 +11,17 @@
 **Goal:** Dev environment ready, architecture scaffolded.
 
 ### Tasks
-- [ ] Initialize Rust project: `cargo init`
-- [ ] Add dependencies to `Cargo.toml`: actix-web, serde, serde_json, rand, rand_chacha, rust-embed
-- [ ] Create project folder structure per architecture doc (`src/engine/`, `src/models/`, `src/api/`, `static/`, `data/`)
-- [ ] Implement `main.rs` — Actix-web server serving static files from `static/`
-- [ ] Create placeholder JSON data files (events, actions, decisions, jobs, endings) in `data/`
-- [ ] Implement `data_loader.rs` — load and deserialize all JSON files at startup
-- [ ] Implement seeded RNG wrapper (`engine/rng.rs`) using `rand_chacha::ChaCha8Rng`
-- [ ] Define all model structs in `src/models/` with serde derives
-- [ ] Create initial `static/index.html` with placeholder UI
-- [ ] Write `README.md` with `cargo run` instructions
-- [ ] Set up GitHub Actions CI: `cargo test` + `cargo clippy` on push
+- [x] Initialize Rust project: `cargo init`
+- [x] Add dependencies to `Cargo.toml`: actix-web, serde, serde_json, rand, rand_chacha, rust-embed
+- [x] Create project folder structure per architecture doc (`src/engine/`, `src/models/`, `src/api/`, `static/`, `data/`)
+- [x] Implement `main.rs` — Actix-web server serving static files from `static/`
+- [x] Create placeholder JSON data files (events, actions, decisions, jobs, endings) in `data/`
+- [x] Implement `data_loader.rs` — load and deserialize all JSON files at startup
+- [x] Implement seeded RNG wrapper (`engine/rng.rs`) using `rand_chacha::ChaCha8Rng`
+- [x] Define all model structs in `src/models/` with serde derives
+- [x] Create initial `static/index.html` with placeholder UI
+- [x] Write `README.md` with `cargo run` instructions
+- [x] Set up GitHub Actions CI: `cargo test` + `cargo clippy` on push
 
 ### Definition of Done
 - `cargo run` serves a placeholder page at `http://localhost:8080`

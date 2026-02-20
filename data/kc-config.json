@@ -1,0 +1,58 @@
+{
+    "city": "Kansas City",
+    "transportation": {
+        "busPass": {
+            "monthly": 50,
+            "label": "KCATA Bus Pass"
+        },
+        "carInsurance": {
+            "monthly": [
+                120,
+                200
+            ],
+            "label": "Car Insurance"
+        },
+        "gasPerMonth": [
+            80,
+            150
+        ]
+    },
+    "industries": [
+        "Healthcare",
+        "Logistics & Warehousing",
+        "Construction Trades",
+        "Information Technology",
+        "Education",
+        "Food Service"
+    ],
+    "education": {
+        "communityCollege": "Johnson County Community College",
+        "trainingPrograms": [
+            "KC Area Technical School",
+            "Full Employment Council",
+            "Workforce Partnership"
+        ]
+    },
+    "wageBands": {
+        "low": [
+            28000,
+            35000
+        ],
+        "medium": [
+            36000,
+            55000
+        ],
+        "high": [
+            56000,
+            80000
+        ]
+    },
+    "neighborhoods": [
+        "Westport",
+        "Midtown",
+        "Northeast",
+        "Waldo",
+        "Independence",
+        "Overland Park"
+    ]
+}
