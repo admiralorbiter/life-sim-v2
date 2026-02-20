@@ -266,6 +266,62 @@ const Components = {
         `;
     },
 
+    // ─── Timeline Entry (Ending Screen) ─────────────────
+    timelineEntry(entry, index) {
+        const stageLabels = {
+            'middle-school': 'Middle School',
+            'high-school': 'High School',
+            'post-high': 'Post-High',
+            'early-adult': 'Early Adult',
+        };
+        const stageAbbrev = {
+            'middle-school': 'MS',
+            'high-school': 'HS',
+            'post-high': 'PH',
+            'early-adult': 'EA',
+        };
+        const stageLabel = stageLabels[entry.stage] || entry.stage;
+        const stageShort = stageAbbrev[entry.stage] || entry.stage;
+
+        // Parse impact string into colored tags
+        const impactTags = entry.impact.split(', ').map(part => {
+            const isPositive = part.includes('+');
+            const cls = isPositive ? 'impact-positive' : 'impact-negative';
+            return `<span class="impact-tag ${cls}">${part}</span>`;
+        }).join(' ');
+
+        return `
+            <div class="timeline-entry" style="--delay: ${index * 0.1}s">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <span class="timeline-stage stage-${entry.stage}">${stageShort}</span>
+                        <span class="timeline-turn">Turn ${entry.turn}</span>
+                    </div>
+                    <div class="timeline-desc">${entry.description}</div>
+                    <div class="timeline-impacts">${impactTags}</div>
+                </div>
+            </div>
+        `;
+    },
+
+    // ─── Timeline View (Ending Screen) ──────────────────
+    timelineView(entries) {
+        if (!entries || entries.length === 0) {
+            return '<p class="timeline-empty">No major decisions recorded.</p>';
+        }
+        return `
+            <div class="timeline-container">
+                <h3>📜 Your Key Decisions</h3>
+                <div class="timeline-track">
+                    ${entries.map((e, i) => this.timelineEntry(e, i)).join('')}
+                </div>
+            </div>
+        `;
+    },
+
     // ─── Toast Notification ─────────────────────────────
     showToast(message, type = 'info') {
         const container = document.getElementById('toast-container');

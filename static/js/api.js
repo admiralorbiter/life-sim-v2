@@ -39,6 +39,11 @@ const API = {
         return res.json();
     },
 
+    async getTimeline() {
+        const res = await fetch('/api/timeline');
+        return res.json();
+    },
+
     async health() {
         const res = await fetch('/api/health');
         return res.json();

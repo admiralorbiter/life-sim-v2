@@ -1498,3 +1498,310 @@ body {
 .job-link:hover {
     color: var(--text-primary);
 }
+
+/* ─── Game Over / Ending Screen ─────────────────────── */
+.gameover-card {
+    text-align: center;
+}
+
+.gameover-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.ending-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+}
+
+.ending-narrative {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+}
+
+.ending-reflection {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0 auto 1.5rem;
+    max-width: 550px;
+    text-align: left;
+}
+
+.reflection-header {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.reflection-prompts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.reflection-prompts li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    border-bottom: 1px dashed var(--border);
+}
+
+.reflection-prompts li:last-child {
+    border-bottom: none;
+}
+
+.reflection-prompts li::before {
+    content: "💭 ";
+}
+
+/* ─── Final Stats Grid ───────────────────────────────── */
+.final-stats {
+    margin: 1.5rem auto;
+    max-width: 500px;
+}
+
+.final-stats h3 {
+    margin-bottom: 1rem;
+}
+
+.final-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.final-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+}
+
+.final-stat-val {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.final-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.final-creds {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+/* ─── Timeline Visualization ─────────────────────────── */
+.timeline-container {
+    margin: 2rem auto;
+    max-width: 550px;
+    text-align: left;
+}
+
+.timeline-container h3 {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+.timeline-track {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline-track::before {
+    content: '';
+    position: absolute;
+    left: 0.6rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--purple));
+    border-radius: 1px;
+}
+
+.timeline-entry {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    animation: fadeSlideIn 0.4s ease both;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.timeline-marker {
+    flex-shrink: 0;
+    position: relative;
+    width: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -1.65rem;
+    top: 0.35rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+.timeline-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    flex: 1;
+}
+
+.timeline-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+}
+
+.timeline-stage {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--accent);
+    color: #fff;
+}
+
+.timeline-stage.stage-middle-school {
+    background: #6366f1;
+}
+
+.timeline-stage.stage-high-school {
+    background: #8b5cf6;
+}
+
+.timeline-stage.stage-post-high {
+    background: #a855f7;
+}
+
+.timeline-stage.stage-early-adult {
+    background: #d946ef;
+}
+
+.timeline-turn {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.timeline-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 0.35rem;
+}
+
+.timeline-impacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.impact-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.35rem;
+    font-family: monospace;
+}
+
+.impact-tag.impact-positive {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--success);
+}
+
+.impact-tag.impact-negative {
+    background: rgba(248, 113, 113, 0.15);
+    color: var(--danger);
+}
+
+.timeline-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ─── Game Over Actions ──────────────────────────────── */
+.gameover-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1.5rem 0 0.75rem;
+    flex-wrap: wrap;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.seed-display {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+.seed-display code {
+    background: var(--surface);
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+    color: var(--text-secondary);
+}

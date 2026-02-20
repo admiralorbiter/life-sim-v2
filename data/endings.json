@@ -14,7 +14,11 @@
             }
         },
         "narrative": "You built a solid foundation. You have skills employers want, money in the bank, and room to breathe. It wasn't easy, but your planning paid off.",
-        "reflection": "What choices early on set you up for this outcome?"
+        "reflections": [
+            "What choices early on set you up for this outcome?",
+            "Which credentials made the biggest difference in your career path?",
+            "How did you manage stress while still building skills?"
+        ]
     },
     {
         "id": "ending_stressed",
@@ -28,7 +32,11 @@
             }
         },
         "narrative": "You have a job and money coming in, but you're running on fumes. The stress is real, and something has to give eventually.",
-        "reflection": "Where did the stress start building? What could you have done differently?"
+        "reflections": [
+            "Where did the stress start building? What could you have done differently?",
+            "Was the income worth the toll on your wellbeing?",
+            "What support systems could have helped reduce your stress?"
+        ]
     },
     {
         "id": "ending_supported",
@@ -42,7 +50,11 @@
             }
         },
         "narrative": "You have people who care about you and a strong support network. Money is tight, but you're not alone. That counts for a lot.",
-        "reflection": "How did your relationships help you through tough times?"
+        "reflections": [
+            "How did your relationships help you through tough times?",
+            "What trade-offs did you make to maintain your support network?",
+            "How could you build financial stability without losing those connections?"
+        ]
     },
     {
         "id": "ending_skilled",
@@ -56,13 +68,21 @@
             }
         },
         "narrative": "You've built an impressive skill set, but somewhere along the way, you lost touch with the people around you. You're capable — but lonely.",
-        "reflection": "Was there a moment where you chose skills over relationships? Was it worth it?"
+        "reflections": [
+            "Was there a moment where you chose skills over relationships? Was it worth it?",
+            "How might having stronger support have changed your path?",
+            "What would you do differently to balance growth and connection?"
+        ]
     },
     {
         "id": "ending_recovering",
         "title": "Off-track but Recovering",
         "conditions": {},
         "narrative": "Things didn't go as planned. You hit some rough patches and missed some opportunities. But you're still here, still trying, and the trend line is pointing up.",
-        "reflection": "What would you do differently if you could replay the same events?"
+        "reflections": [
+            "What would you do differently if you could replay the same events?",
+            "Which moments felt like turning points — for better or worse?",
+            "What does 'recovering' look like in real life? What resources help?"
+        ]
     }
 ]

@@ -174,21 +174,22 @@ A collapsible debug panel (`🛠️ Dev Tools`) is available at the bottom of th
 **Goal:** The game has meaningful conclusions and a reflection layer.
 
 ### Tasks
-- [ ] Implement `ending_resolver.rs` — evaluate final state against 5 ending conditions
-- [ ] Author ending text for all 5 outcomes in `data/endings.json`
-- [ ] Build ending screen in frontend — display outcome, stats summary, narrative
-- [ ] Implement timeline logic — extract top 8 impactful decisions from decision log
-- [ ] Add `GET /api/timeline` and `GET /api/endings` endpoints
-- [ ] Build timeline visualization (vertical list with turn #, choice, and consequence)
-- [ ] Build reflection prompts UI — display 2–3 reflection questions
-- [ ] Add "Play Again" button that calls `POST /api/new_game` (optionally with new seed)
-- [ ] Add "Share Seed" button — copies seed to clipboard
+- [x] Ending resolution — condition-matching logic in `routes.rs` evaluates final state against 5 endings (money, stress, support, credentials thresholds)
+- [x] Author ending text for all 5 outcomes in `data/endings.json` — Stable+Credentialed, Stressed but Employed, Supported but Broke, Skilled but Isolated, Off-track but Recovering
+- [x] Build ending screen in frontend — `renderGameOver()` displays outcome badge, narrative, stats summary grid, and credentials
+- [x] Implement timeline logic — `GET /api/timeline` extracts top 8 impactful decisions by absolute stat-delta magnitude, re-sorted by turn order
+- [x] `GET /api/timeline` and `GET /api/endings` endpoints registered and functional
+- [x] Build timeline visualization — vertical track with stage-colored dots (MS/HS/PH/EA), decision descriptions, and color-coded impact tags (+green/-red)
+- [x] Build reflection prompts UI — each ending has 3 reflection questions rendered as a 💭-prefixed list; `reflection: String` → `reflections: Vec<String>` in model
+- [x] "Play Again" button calls `startNewGame()` (no reload); "Replay Same Seed" passes seed override
+- [x] "Share Seed" button — copies seed to clipboard with toast notification
+- [x] Added ~300 lines of CSS: timeline animations (`fadeSlideIn`), ending badge gradient, impact tags, reflection card, button group, seed display
 
 ### Definition of Done
-- Every playthrough resolves to one of 5 endings
-- Timeline shows the player's most impactful decisions
-- Reflection prompts display after ending
-- Player can restart or share their seed
+- [x] Every playthrough resolves to one of 5 endings
+- [x] Timeline shows the player's top 8 most impactful decisions
+- [x] Reflection prompts (3 per ending) display after ending
+- [x] Player can restart, replay same seed, or share their seed
 
 ---
 

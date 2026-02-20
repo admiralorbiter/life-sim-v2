@@ -8,7 +8,7 @@ pub struct Ending {
     pub title: String,
     pub conditions: EndingConditions,
     pub narrative: String,
-    pub reflection: String,
+    pub reflections: Vec<String>,
 }
 
 /// Threshold conditions that determine which ending applies.

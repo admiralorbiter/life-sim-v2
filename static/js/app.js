@@ -16,9 +16,9 @@ const Game = {
         document.getElementById('btn-new-game').addEventListener('click', () => Game.startNewGame());
     },
 
-    async startNewGame() {
+    async startNewGame(seedOverride = null) {
         const seedInput = document.getElementById('seed-input');
-        const seed = seedInput.value.trim() || null;
+        const seed = seedOverride || (seedInput ? seedInput.value.trim() : null) || null;
 
         const result = await API.newGame(seed);
         if (result.state) {
@@ -400,9 +400,14 @@ const Game = {
     // ─── Game Over ──────────────────────────────────────
     async renderGameOver() {
         const content = document.getElementById('phase-content');
-        const endingData = await API.getEnding();
+        const [endingData, timelineData] = await Promise.all([
+            API.getEnding(),
+            API.getTimeline(),
+        ]);
         const ending = endingData.ending;
         const state = endingData.state;
+        const timeline = timelineData.timeline || [];
+        const seed = timelineData.seed || state.seed || '';
 
         let html = `
             <div class="phase-card gameover-card">
@@ -410,12 +415,16 @@ const Game = {
         `;
 
         if (ending) {
+            // Reflection prompts — support both array and legacy string
+            const reflections = ending.reflections || (ending.reflection ? [ending.reflection] : []);
+            const reflectionHtml = reflections.map(r => `<li>${r}</li>`).join('');
+
             html += `
                 <div class="ending-badge">${ending.title}</div>
                 <p class="ending-narrative">${ending.narrative}</p>
                 <div class="ending-reflection">
                     <div class="reflection-header">💭 Reflection</div>
-                    ${ending.reflection}
+                    <ul class="reflection-prompts">${reflectionHtml}</ul>
                 </div>
             `;
         } else {
@@ -448,12 +457,20 @@ const Game = {
                 : ''}
                 </div>
 
-                <div class="turn-timeline">
-                    <h3>📜 Your Journey</h3>
-                    ${this.turnLog.map(entry => Components.turnLogEntry(entry.turn, entry.stage, entry.feedback)).join('')}
-                </div>
+                ${Components.timelineView(timeline)}
 
-                <button class="btn btn-primary" onclick="location.reload()">🔄 Play Again</button>
+                <div class="gameover-actions">
+                    <button class="btn btn-primary" onclick="Game.startNewGame()">
+                        🔄 Play Again
+                    </button>
+                    <button class="btn btn-secondary" onclick="Game.startNewGame('${seed}')">
+                        🔁 Replay Same Seed
+                    </button>
+                    <button class="btn btn-outline" onclick="Game.shareSeed('${seed}')">
+                        🔗 Share Seed
+                    </button>
+                </div>
+                <div class="seed-display">Seed: <code>${seed}</code></div>
             </div>
         `;
 
@@ -492,8 +509,19 @@ const Game = {
     },
 
     closeJobBoard() {
-        const container = document.getElementById('job-board-container');
-        if (container) container.remove();
+        const modal = document.getElementById('job-board-modal');
+        if (modal) modal.remove();
+    },
+
+    // ─── Share Seed ─────────────────────────────────────
+    async shareSeed(seed) {
+        try {
+            await navigator.clipboard.writeText(seed);
+            Components.showToast(`Seed copied: ${seed}`, 'info');
+        } catch {
+            // Fallback for older browsers
+            Components.showToast(`Seed: ${seed}`, 'info');
+        }
     },
 };
 

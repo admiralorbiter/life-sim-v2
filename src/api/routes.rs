@@ -404,6 +404,43 @@ pub async fn debug_grant_tag(
     }
 }
 
+/// GET /api/timeline — Get the top 8 most impactful decisions.
+pub async fn get_timeline(
+    app_state: web::Data<AppState>,
+) -> impl Responder {
+    let game = app_state.game.lock().unwrap();
+    match &*game {
+        Some(state) => {
+            let mut entries = state.decision_log.clone();
+            // Sort by total absolute impact magnitude (descending)
+            entries.sort_by(|a, b| {
+                let mag_a: i32 = a.impact.split(", ")
+                    .filter_map(|s| s.split_whitespace().last())
+                    .filter_map(|v| v.parse::<i32>().ok())
+                    .map(|v| v.abs())
+                    .sum();
+                let mag_b: i32 = b.impact.split(", ")
+                    .filter_map(|s| s.split_whitespace().last())
+                    .filter_map(|v| v.parse::<i32>().ok())
+                    .map(|v| v.abs())
+                    .sum();
+                mag_b.cmp(&mag_a)
+            });
+            entries.truncate(8);
+            // Re-sort by turn order for display
+            entries.sort_by_key(|e| e.turn);
+
+            HttpResponse::Ok().json(serde_json::json!({
+                "timeline": entries,
+                "seed": &state.seed,
+            }))
+        }
+        None => HttpResponse::BadRequest().json(serde_json::json!({
+            "error": "No game in progress."
+        })),
+    }
+}
+
 /// Configure all API routes.
 pub fn configure(cfg: &mut web::ServiceConfig) {
     cfg.service(
@@ -415,6 +452,7 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
             .route("/draw_event", web::get().to(draw_event))
             .route("/submit_turn", web::post().to(submit_turn))
             .route("/endings", web::get().to(get_ending))
+            .route("/timeline", web::get().to(get_timeline))
             .route("/jobs", web::get().to(get_jobs))
             // Debug endpoints
             .route("/debug/skip_stage", web::post().to(debug_skip_stage))
